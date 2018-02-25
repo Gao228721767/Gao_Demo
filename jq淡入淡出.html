@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq淡入淡出</title>
+    <style>
+        *{margin:0;padding:0;}
+        html,body{width: 100%;height: 100%;}
+        .show_Btn{width: 100px;height: 40px;background: #008080;border-radius: 4px;margin:10px 10px;text-align: center;line-height: 40px;color: #FFF;cursor: pointer;}
+        .box{width: 100%;height: 100%;background:rgba(0,0,0,.5);filter:alpha(opacity=50);position: fixed;left: 0;top:0;display: none;}
+        .box_1{width: 500px;height: 300px;background:#FFF;position:absolute;left: 0;top:0;right: 0;bottom: 0;margin:auto;  }
+        .close_Win{width: 100%;height: 40px;line-height: 40px;text-align: right;}
+    </style>
+</head>
+<body>
+    <div class="show_Btn">显示</div>222
+    <div class="box">
+        <div class="box_1">
+            <p class="close_Win">关闭</p>
+        </div>
+    </div>
+
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        $('.show_Btn').on('click',function(){
+            $('.box').fadeIn('2000');
+        })
+        $('.close_Win').on('click',function(){
+            $('.box').fadeOut('2000');
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>接口</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style>
+			*{margin:0;padding:0;}
+			header{width: 100%;height:44px;position: fixed;left: 0;top:0;text-align: center;line-height: 44px;background: #389FDF;color: #FFF;}
+			#list{width:100%;margin-top: 44px;}
+			#list li{width: 100%;border-bottom: 1px solid #555555;text-indent: 2em;font-size: 14px;}
+		</style>
+	</head>
+	<body>
+		<header>
+			列表
+		</header>
+		<ul id="list">
+
+		</ul>
+
+
+		<script src="js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			/*$(function(){
+				 $.ajax({
+			            type:"GET",
+			            async: true,
+			            url:"https://bird.ioliu.cn/joke/rand?type=text",
+			            success:function(data){
+			                create(data);
+			            },
+			            error:function(){
+			                alert('error');
+			            }
+			       });
+
+
+			       function create(data){
+			       		var list=data.data;
+						console.log(list)
+			       		for(var i=0;i<list.length;i++){
+			       			var content=list[i].content;
+			       			$("<li>"+content+"</li>").appendTo($("#list"));
+			       		}
+			       }
+			    });
+*/
+
+				var url = 'https://bird.ioliu.cn/joke/rand?type=text'
+
+			     /*fetch(url).then(response => response.json())
+			     .then(data => console.log(data))
+			     .catch(e => console.log('error',e))*/
+
+
+
+			     // 请求方法
+			    function Fetch(url = "", options = {}) {
+			    	console.log(options)
+
+					const defer = new Promise((resolve, reject) => {
+					    fetch(url, options)
+					      .then(response => {
+					        return response.json()
+					      })
+					      .then(data => {
+					        if (data.status.code === 200) {
+					          resolve(data) 					//返回成功数据
+					        } else {
+					            if (data.status.code === 401) {
+					            //失败后的一种状态
+
+					            } else {
+					            //失败的另一种状态
+
+					            }
+					          reject(data) //返回失败数据
+					        }
+					      })
+					      .catch(error => {
+					        //捕获异常
+					        console.log(error.msg)
+					        reject()
+					      })
+					  })
+					return defer
+				}
+
+				// 调用方法
+				var data = {}
+
+				Fetch(url,{
+					// method:"POST",
+				  	// credentials: 'include',// 携带cookie
+				  	data:JSON.stringify(data)
+				}).then(data => {
+				  	console.log(data)
+				  	create(data)
+				}).catch(e => {
+					console.log(e)
+				})
+
+
+				function create(data){
+		       		var list=data.data;
+					console.log(list)
+		       		for(var i=0;i<list.length;i++){
+		       			var content=list[i].content;
+		       			$("<li>"+content+"</li>").appendTo($("#list"));
+		       		}
+		       }
+
+
+		</script>
+	</body>
+</html>

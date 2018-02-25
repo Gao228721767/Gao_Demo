@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		 <div>
+	        <input type="checkbox" name="checkAll">全选
+	    </div>
+	    <br>
+	    <div class="cbList">
+	        <input type="checkbox" name="cb">
+	        <input type="checkbox" name="cb">
+	        <input type="checkbox" name="cb">
+	    </div>
+	    
+	    
+	    <script src="js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+	    <script type="text/javascript">
+	    	var $ckAll = $('input[name=checkAll]'),
+            $cb = $('input[name=cb]'),
+            $cbList = $('.cbList');
+    
+		    $ckAll.on('click', function() {
+		        var flag = $ckAll.prop('checked');
+		    
+		        if (flag) {
+		            $cb.prop('checked', true);
+		        } else {
+		            $cb.prop('checked', false);
+		        }
+		    });
+		    
+		    $cbList.on('click', function() {
+		        var flag = true;
+		    
+		        $.each($cb, function(index, item) {
+		            if (!$(item).prop('checked')) {
+		                flag = false;
+		            }
+		        });
+		    
+		        if (flag) {
+		            $ckAll.prop('checked', true);
+		        } else {
+		            $ckAll.prop('checked', false);
+		        }
+		    });
+	    </script>
+	</body>
+</html>

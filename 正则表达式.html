@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则表达式</title>
+</head>
+<body>
+    <!-- 电话号码 -->
+    <input class="tel" type="text" maxlength="11" placeholder="请输入电话号码" /><span class="telTips"></span>
+
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+
+        $('.tel').on('blur',function(){
+            var val = $(this).val();
+            checkMobile(val,this);
+        })
+
+        //验证 电话号码
+        function checkMobile(val,that){
+            if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(val))){
+                $('.telTips').html('请输入正确的手机号');
+                //$(that).val('').focus();
+                return false;
+            }else{
+                $('.telTips').html('');
+            }
+        }
+    </script>
+</body>
+</html>

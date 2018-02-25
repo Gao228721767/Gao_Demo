@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+    <input type="text" value="请输入电话号码" placeholder=""/>
+    <button>箭头函数</button>
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        var val = $('input').val();
+        $('input').on('focus',function(){
+            $(this).val('');
+            $(this).attr('placeholder',val);
+        })
+
+        $('input').on('blur',function(){
+            var PH = $(this).attr('placeholder');
+            if($(this).val() == ''){
+                $(this).val(PH);
+            }else{
+                return $(this).val();
+            }
+        })
+
+        $('button').on('click',()=> alert($('input').val()));
+
+    </script>
+</body>
+</html>

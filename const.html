@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>const</title>
+</head>
+<body>
+
+    <script>
+        onload=function(){
+            const str = 1111;
+            console.log(str)
+            // str = '如果const 定义的类型是一个字符串或数字Number、布尔值，const 会报错，因为（变量名字在内存中的指针不能够改变，但是指向这个变量的值 可能 改变）'
+            console.log('如果const 定义的类型是一个字符串或是数字Number、布尔值，值改变后,const 会报错，因为（变量名字在内存中的指针不能够改变，但是指向这个变量的值 可能 改变）');
+
+            const arr = [];
+            arr.push('111')
+            console.log(arr);
+
+            const obj ={};
+            obj.name = '张三'
+            console.log(obj);
+
+            const flag = false;
+            // flag = true;
+            console.log(flag)
+        }
+    </script>
+
+</body>
+</html>

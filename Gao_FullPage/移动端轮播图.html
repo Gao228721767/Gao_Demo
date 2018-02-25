@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>移动端轮播图</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        ul,li{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        #wrapper{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #banner{
+            width: 100%;
+            height: 275px;
+            background:green;
+            position: relative;
+        }
+        .banner{
+            width:100%;
+            height: 100%;
+            position: relative;
+            left: 0;
+            overflow: hidden;
+        }
+        .banner li{
+            width: 100%;
+            height: 100%;
+            float: left;
+            position: relative;
+        }
+        .banner li img{
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .banner li p{
+            width: 98%;
+            background: rgba(0,0,0,0.5);
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            line-height: 30px;
+            color: #FFF;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            padding: 0 1%;
+        }
+        .tips{
+            position: absolute;
+            left: 50%;
+            bottom: 40px;
+            transform:translateX(-50%);
+            overflow: hidden;
+        }
+        .tips li{
+            float: left;
+            width: 10px;
+            height: 10px;
+            background: #FFF;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .tips li:last-child{
+            margin-right: 0;
+        }
+        .active{
+            background: #008080!important;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="banner">
+            <ul class="banner">
+                <li class="banner_list">
+                    <img src="http://imglf1.ph.126.net/qKodH3sZoVbPalKFtHS9mw==/6608946691259322175.jpg">
+                    <p>镜面的世界，终究只是倒影。看得到你的身影，却触摸不到你的未来</p>
+                </li>
+                <li class="banner_list">
+                    <img src="http://imglf1.ph.126.net/40-jqH_j6EoCWnZOixY2pA==/4798022453110310215.jpg">
+                    <p>锡林浩特前往东乌旗S101必经之处，一条极美的铁路。铁路下面是个小型的盐沼，淡淡的有了一丝天空之境的感觉。可惜在此玩了一个小时没有看见一列火车经过，只好继续赶往东乌旗。</p>
+                </li>
+                <li class="banner_list">
+                    <img src="http://imglf0.ph.126.net/Jnmi2y51zVdjKAYlibtpFw==/3068640196117481166.jpg">
+                    <p>水的颜色为什么那么蓝，我也纳闷，反正自然饱和度和对比度拉完就是这个颜色的</p>
+                </li>
+                <li class="banner_list">
+                    <img src="http://imglf1.ph.126.net/79GPsjhwiIj8e-0nP5MsEQ==/6619295294699949331.jpg">
+                    <p>海洋星球3重庆天气热得我想卧轨自杀</p>
+                </li>
+            </ul>
+            <ul class="tips">
+                <li class="tips_list active"></li>
+                <li class="tips_list"></li>
+                <li class="tips_list"></li>
+                <li class="tips_list"></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(function(){
+            var startPos = null;
+            var endPos = null;
+            var isScrolling = null;
+
+
+            var Banner = {
+                //判断设备是否支持touch事件
+                touch:('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch,
+                num:0,
+                banner:$('.banner'),
+                bannerList:$('.banner_list'),
+                tips:$('.tips_list'),
+                events:{
+                    index:0,
+                    slider:$('.banner'),
+                    tips:$('.tips_list'),
+                    handleEvent:function(event){
+                        var self = this;
+                        if(event.type == 'touchstart'){
+                            self.start(event);
+                        }else if(event.type == 'touchmove'){
+                            self.move(event);
+                        }else if(event.type == 'touchend'){
+                            self.end(event);
+                        }
+                    },
+                    //滑动开始
+                    start:function(event){
+                        console.log(this)
+                        var touch = event.targetTouches[0];
+                        startPos = {x:touch.pageX,y:touch.pageY,time:+new Date}
+                        isScrolling = 0;
+                        this.slider[0].addEventListener('touchmove',this,false);
+                        this.slider[0].addEventListener('touchend',this,false);
+                    },
+                    //移动
+                    move:function(event){
+                        if(event.targetTouches.length > 1 || event.scale && event.scale !== 1) return;
+                        var touch = event.targetTouches[0];
+                         endPos = {x:touch.pageX - startPos.x,y:touch.pageY - startPos.y};
+                         isScrolling = Math.abs(endPos.x) < Math.abs(endPos.y) ? 1:0;    //isScrolling为1时，表示纵向滑动，0为横向滑动
+                         if(isScrolling === 0){
+                             event.preventDefault();      //阻止触摸事件的默认行为，即阻止滚屏
+                             var left = -this.index*$('.banner_list').width()+endPos.x;
+                             this.slider.animate({'left':left+'px'},10);
+                         }
+                    },
+                    //结束
+                    end:function(event){
+                        var duration = +new Date - startPos.time;    //滑动的持续时间
+                        if(isScrolling === 0){    //当为水平滚动时
+                         if(Number(duration) > 10){
+                             //判断是左移还是右移，当偏移量大于10时执行
+                             if(endPos.x > 10){     //右移、
+                                 if(this.index !== 0) this.index -= 1;
+                             }else if(endPos.x < -10){  //左移
+                                 if(this.index !== this.tips.length-1) this.index += 1;
+                             }
+                         }
+                            this.tips.eq(this.index).addClass('active').siblings().removeClass('active');
+                            this.slider.animate({'left':-this.index*$('.banner_list').width()+'px'},200);
+                        }
+                        //解绑事件
+                        this.slider[0].removeEventListener('touchmove',this,false);
+                        this.slider[0].removeEventListener('touchend',this,false);
+                    }
+                },
+
+                //初始化
+                init:function(){
+                    var self = this;
+                    $('.banner_list').css('width',$(window).width())
+                    // $('.banner_list').eq(this.num).clone(true).appendTo('.banner')
+                    var BannerWidth = $(window).width()*$('.banner_list').length;
+                    this.banner.css('width',BannerWidth)
+                    //this.startMove();
+                    this.windowResize();
+                    if(!!this.touch) this.banner[0].addEventListener('touchstart',this.events,false)
+                },
+
+
+                //监听窗口变化
+                windowResize:function(){
+                    var self = this;
+                    $(window).resize(function(event){
+                        var BannerWidth = $(window).width()*$('.banner_list').length;
+                        self.banner.css('width',BannerWidth)
+                        $('.banner_list').css('width',$(window).width())
+                    })
+                },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                //开始运动
+                startMove:function(){
+                    var self = this;
+                    var timer = null;
+                    clearInterval(timer);
+                    timer = setInterval(function(){
+                        self.num++;
+                        if(self.num > self.bannerList.length){
+                            self.banner.css({'left':0})
+                            self.num = 1;
+                        }
+                        self.Moving()
+                    },3000)
+                },
+
+                Moving:function(){
+                    this.banner.animate({'left':-this.num*this.bannerList.width()+'px'},500)
+                    this.tips.eq(this.num).addClass('active').siblings().removeClass('active')
+                },
+
+            }
+
+            Banner.init();
+        })
+    </script>
+</body>
+</html>

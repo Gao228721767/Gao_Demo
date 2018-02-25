@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算时间</title>
+</head>
+<body>
+    <div class="time">
+        
+    </div>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        $(function(){
+            var systemTime = '2018-02-16 08:50';
+
+            var currentTime = new Date();
+            var overTime = new Date(systemTime);
+            var showTime = (currentTime - overTime)/1000/60;
+
+
+            console.log(showTime);                      //n分钟前
+            console.log(showTime/60);                   //n小时前
+            console.log(showTime/60/24);                //n天前
+
+            if(showTime < 1){
+                $('.time').text('刚刚')
+            }else if(showTime > 1 && showTime <= 60){
+                $('.time').text(parseInt(showTime)+'分钟前')
+            }else if(showTime/60 > 1 && showTime/60 <= 60){
+                $('.time').text(Math.round(showTime/60)+'小时前')
+            }else if(showTime/60/24 > 1 && showTime/60/24 <= 7){
+                $('.time').text(parseInt(showTime/60/24)+'天前')
+            }else if(showTime/60/24 > 7){
+                $('.time').text(systemTime)
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>删除数组指定元素</title>
+</head>
+<body>
+
+
+    <script>
+
+    onload = function(){
+
+        var NumArr = [000,111,222,333,444,555,666,777,888,999]
+
+        document.write(removeCannle(NumArr,000))
+
+        function removeCannle(arr,obj) {
+            let length = arr.length;
+            for(let i = 0; i < length; i++)
+            {
+                if(arr[i] == obj)
+                {
+                    if(i == 0)
+                    {
+                        arr.shift(); //删除并返回数组的第一个元素
+                        return arr;
+                    }
+                    else if(i == length-1)
+                    {
+                        arr.pop();  //删除并返回数组的最后一个元素
+                        return arr;
+                    }
+                    else
+                    {
+                        arr.splice(i,1); //删除下标为i的元素
+                        return arr;
+                    }
+                }
+            }
+        }
+    }
+    </script>
+
+</body>
+</html>

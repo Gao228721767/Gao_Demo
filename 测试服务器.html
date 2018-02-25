@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button>按钮</button>
+    <div id="img">
+
+    </div>
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        $(function(){
+            $('button').click(function(){
+                $.ajax({
+                        type:"GET",
+                        async: true,
+                        // url:"https://bird.ioliu.cn/joke/rand?type=text",
+                        url:"json/test1.json",
+                        success:function(res){
+                            console.log(res.data);
+                            var res = res.data;
+                            for(var i = 0 ; i < res.length; i++){
+                                console.log(res[i].img)
+
+                                $("<img src='"+ res[i].img +"' />").appendTo('#img');
+                            }
+                        },
+                        error:function(){
+                            alert('error');
+                        }
+                   });
+            })
+        })
+    </script>
+</body>
+</html>

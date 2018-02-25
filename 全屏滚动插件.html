@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <title>全屏滚动插件</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        ul,li{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        #wrapper{
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top:0;
+        }
+        .Wrapper_Con{
+            width: 100%;
+        }
+        .slider{
+            width: 100%;
+            text-align: center;
+        }
+        /* .page1{
+            background:#E4E6CE ;
+        }
+        .page2{
+            background:#6CE26C ;
+        }
+        .page3{
+            background:#BF4938 ;
+        }
+        .page4{
+            background:#42a4ff ;
+        }
+        .page5{
+            background:#1BBC9B ;
+        } */
+        .sliderSpot_wrapper{
+            position:fixed;
+            top: 50%;
+            right: 20px;
+            z-index: 9;
+            transform:translateY(-50%);
+        }
+        .slider_spot{
+            width: 5px;
+            height: 5px;
+            background: #FFF;
+            border-radius: 50%;
+            margin-bottom: 5px;
+        }
+        .slider_spot:last-child{
+            margin-bottom: 0;
+        }
+        .active{
+            background: #008080!important;
+            color: #FFF;
+        }
+        .auto_height{
+            height: auto!important;
+        }
+        .menuItem{
+            width:100% ;
+            position: fixed;
+            left: 20px;
+            top:10px;
+        }
+        .menuList{
+            width: 100px;
+            height: 30px;
+            background: #FFF;
+            line-height: 30px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+     <div id="wrapper">
+        <div class="Wrapper_Con">
+            <div class="page1 slider"><div>第一屏</div></div>
+            <div class="page2 slider"><div>第二屏</div></div>
+            <div class="page3 slider"><div>第三屏</div></div>
+            <div class="page4 slider"><div>第四屏</div></div>
+            <div class="page5 slider"><div>第五屏</div></div>
+        </div>
+    </div>
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/全屏滚动插件.js"></script>
+    <script>
+        $(function(){
+            $('#wrapper').fullpage({
+                slidesColor:['#E4E6CE','#6CE26C','#BF4938','#42a4ff','#1BBC9B'],
+                time:700,                                               //动画时间
+                navigation:true,                                        //是否显示项目导航
+                navigationPosition:'right',                             //项目导航定位
+                menu:true,                                              //绑定菜单
+                //autoScrolling:true,                                    //是否使用插件的滚动方式(暂时不做)
+                afterLoad:function(index){
+                    if(index == 0){
+                        $('.slider').eq(index).css('overflow','hidden')
+                        $('.slider').eq(index).find('div').delay(1000).animate({'marginTop': '300px' }, 1500);
+                    }else if(index == 1){
+                        $('.slider').eq(index).css('overflow','hidden')
+                        $('.slider').eq(index).find('div').delay(1000).animate({'marginTop': '200px' }, 1500);
+                    }else if(index == 2){
+                        $('.slider').eq(index).css('overflow','hidden')
+                        $('.slider').eq(index).find('div').delay(1000).animate({'marginTop': '500px' }, 1500);
+                    }else if(index == 3){
+                        $('.slider').eq(index).css('overflow','hidden')
+                        $('.slider').eq(index).find('div').delay(1000).animate({'marginTop': '100px' }, 1500);
+                    }else if(index == 4){
+                        // $('.slider').eq(index).css('overflow','hidden')
+                        // $('.slider').eq(index).find('div').delay(1000).animate({'marginTop': '50px' }, 1500);
+                    }
+                },
+                onLeave:function(index){
+                    if(index == 0 || index == 1 || index == 2 || index == 3 || index == 4){
+                        $('.slider').eq(index).siblings().css('overflow','auto')
+                        $('.slider').eq(index).siblings().find('div').delay(500).animate({'marginTop': '0' }, 500);
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+</html>

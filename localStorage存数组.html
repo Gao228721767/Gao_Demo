@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        var Array = [1,2,3,4,] ;
+        localStorage.setItem('Arr',JSON.stringify(Array));
+    </script>
+
+
+
+    <script>
+        var arr =  JSON.parse(localStorage.getItem('Arr'));
+        console.log(arr)
+        arr.push(123);
+        console.log(arr);
+    </script>
+
+
+</body>
+</html>

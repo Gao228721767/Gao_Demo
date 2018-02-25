@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input id="Btn" type="button" value="按钮" />
+
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+    var Index = {
+        init:function(){
+            Index.buildEvent();
+        },
+        buildEvent:function(){
+            $('#Btn').on('click',Index.alertEvent);
+        },
+        alertEvent:function(){
+            alert('触发点击事件');
+        }
+    }
+    Index.init();
+    </script>
+</body>
+</html>

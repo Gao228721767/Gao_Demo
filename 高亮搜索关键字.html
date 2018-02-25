@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高亮搜索关键字</title>
+</head>
+<body>
+    <input type="text" placeholder="请输入关键字" id="seachVal"/>
+    <input type="button" value="搜索" id="search_btn">
+    <p id="con"></p>
+    <div class="order"></div>
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        $(function(){
+            var list = {
+                Title:'这是标题',
+                Content:'这是内容',
+                Footer:'这是底部'
+            }
+            $('#search_btn').click(function(){
+                var SearchVal = $('#seachVal').val();
+                if(SearchVal != ""){
+                    console.log(SearchVal)
+                    var seachVal = SearchVal;
+                    var name= list.Title;
+                    var cardTitle = name.toLowerCase();
+                    var subStart = cardTitle.indexOf(seachVal.toLowerCase());
+                    console.log(subStart)
+                    if(subStart>0||subStart==0){
+                        var subEnd = cardTitle.indexOf(seachVal.toLowerCase())+seachVal.length;
+                        cardTitle = name.substr(0,subStart) + '<span style="color:#008CF0">' + name.substr(subStart,seachVal.length) + '</span>' + name.substr(subEnd)
+                        list.Title=cardTitle;
+                        $('#con').empty()
+                        $('#con').append(cardTitle)
+                    }
+                }
+            })
+
+
+
+            var orderTitle = '您的网文YXWZ2017121480001提交成功，支付金额80，支付方式账户余额支付，系统正在处理中... '
+            var orderno = 'YXWZ2017121480001';
+
+            function substrOrderNo(orderTitle,orderno){
+                var orderSearch = orderTitle.indexOf(orderno);
+
+                if(orderSearch != -1){
+                    var orderNoLen = orderno.length;
+                    var subEnd =orderNoLen + orderSearch;
+                    orderTitle = orderTitle.substr(0,orderSearch) + '<span style="color:#008CF0">' + orderTitle.substr(orderSearch,orderNoLen) + '</span>' +  orderTitle.substr(subEnd);
+                }
+                $('.order').append(orderTitle)
+            }
+
+            substrOrderNo(orderTitle,orderno)
+        })
+    </script>
+</body>
+</html>

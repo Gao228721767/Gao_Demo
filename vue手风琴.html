@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding-top: 100px;
+        }
+
+        #tabPanel {
+            width: 120px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        #tabPanel .item .sildermun ul li {
+            height: 40px;
+            line-height: 40px;
+            list-style: none;
+        }
+
+        #tabPanel .item .sildermun ul li:hover {
+            background: #ccc;
+        }
+
+        #tabPanel .item .menutitle {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: #ccc;
+        }
+
+        #tabPanel .item .sildermun {
+            text-align: center;
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="tabItem">
+        <slider-item v-for='list in sliderItem' :key='list'></slider-item>
+    </div>
+
+    <!--组件模板,也可以使用template标签方式引入模板-->
+    <template id="tab">
+        <div id="tabPanel">
+            <div class="item">
+                <div class="menutitle" @click="toggle()"><i class="icon-th-list"></i>&nbsp;{{parentItem}}</div>
+                <div class="sildermun" v-show="status">
+                    <ul>
+                        <li v-for="(index,v) in childItems"><i class="icon-star"></i>&nbsp;{{v+index}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+    <!--组件模板,也可以使用template标签方式引入模板-->
+</body>
+
+</html>
+<script>
+    var vue = new Vue({
+        el: "#tabItem",
+        data: {
+            sliderItem:[1,2,3,4],
+            status:[]
+        },
+        created(){
+            this.sliderItem.map(() => {
+                this.status.push(false);
+            })
+            console.log(this.status)
+        },
+        components: {
+            'slider-item': {
+                template: '#tab',
+                data: function() {
+                    return {
+                        status: false,
+                        parentItem: "父级菜单",
+                        childItems: ["子级菜单", "子级菜单", "子级菜单", "子级菜单"]
+                    }
+                },
+                methods: {
+                    //切换滑块
+                    toggle: function() {
+                        this.status = !this.status;
+                    }
+                }
+            }
+        }
+    });
+</script>

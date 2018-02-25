@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <title>Gao_Sir</title>
+    <link rel="stylesheet" href="css/Gao_base.css" />
+    <link rel="stylesheet" href="css/Gao_FullPages.css" />
+    <link rel="stylesheet" href="css/Gao_index.css" />
+</head>
+<body>
+    <div id="wrapper">
+        <!-- 正文 -->
+        <div class="Slider_Wrapper">
+            <!-- page1 -->
+            <div class="page1 slider">
+                <div class="bar"></div>
+                <div class="page1_Content">
+                    <!-- nav 导航栏-->
+                    <div class="menu">
+                        <div class="menuItem">
+                        </div>
+                        <span class="closeBtn">关闭</span>
+                    </div>
+                    <span class='iconBtn'>icon</span>
+                    <!-- banner 背景图 -->
+                    <ul class="banner">
+                        <li><img src="images/mf700-06059798.jpg" alt=""></li>
+                        <li><img src="images/2.jpg" alt=""></li>
+                    </ul>
+                    <!-- 文字 -->
+                    <div class="main_Content">
+                        <div class="Content_Text">
+                            <h1>I'M JONATHAN DOE</h1>
+                            <h3>Design & Build Beautiful Crafted Web Experiences</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- page2 -->
+            <div class="page2 slider">
+                <div class="page2_header page_header" style="margin-top:80px;">
+                    <h2>XXXXXXXXX</h2>
+                    <h3>xxxxxxxxxxxxxx</h3>
+                </div>
+                <div class="page2_Content">
+                    <div class="page2_Conleft"></div>
+                    <div class="page2_Conright"></div>
+                </div>
+            </div>
+            <!-- page3 -->
+            <div class="page3 slider">
+                <div class="page3_header page_header" style="margin-top:80px;">
+                    <h2>XXXXXXXXX</h2>
+                    <h3>xxxxxxxxxxxxxx</h3>
+                </div>
+                <div class="page3_Content">
+                    <div id="page3_Conleft" class="page3_Conleft" style="width:40%;height:100%;"></div>
+                    <div class="page3_Conright"></div>
+                </div>
+            </div>
+            <!-- page4 -->
+            <div class="page4 slider">
+                <div class="page3_header page_header" style="margin-top:80px;">
+                    <h2>XXXXXXXXX</h2>
+                    <h3>xxxxxxxxxxxxxx</h3>
+                </div>
+            </div>
+            page5
+            <div class="page5 slider">
+                <div style="margin-top:80px;">第五屏</div>
+            </div>
+            <div class="page6 slider auto_height">
+                <div style="margin-top:80px;">第六屏</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页面初始化 -->
+    <div class="loading">
+        <img src="images/timg.gif" alt="">
+    </div>
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/echarts.common.min.js"></script>
+    <script src="js/Gao_FullPages.js"></script>
+    <script src="js/Gao_index.js"></script>
+    <script>
+        $(function(){
+            $('body').snow({
+                minSize: 5, //雪花的最小尺寸
+                maxSize: 50, //雪花的最大尺寸
+                newOn: 1000  //雪花出现的频率 这个数值越小雪花越多
+            });
+        })
+    </script>
+</body>
+</html>

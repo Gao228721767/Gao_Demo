@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组去重</title>
+</head>
+<body>
+
+    <script>
+        onload = function(){
+            var Arr = [111,222,333,444,555,666,777,888,999,111,222,333]
+            document.write(delRepeatArr1(Arr)+'<br/>')
+
+            function delRepeatArr1(arr){
+                var reremoveId = [];
+                var DataJson = {};
+                for(var i = 0; i < arr.length; i++){
+                    console.log(!DataJson[arr[i]]);
+                    if(!DataJson[arr[i]]){
+                        reremoveId.push(arr[i]);
+                        DataJson[arr[i]] = 1;
+                    }
+                }
+                arr = reremoveId;
+                return arr;
+            }
+
+
+            //ES6去重方法
+            Arr = Array.from(new Set(Arr));
+            document.write(Arr)
+        }
+    </script>
+
+</body>
+</html>

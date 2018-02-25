@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+			function fizzBuzz(num) {
+			    var res1 = num%3;
+			    var res2 = num%5;
+			   	if(res1 == 0 && res2 == 0){
+			         console.log("fizzbuzz") ;
+			    }else if(res1 == 0){
+			       	 console.log("fizz") ;
+			    }else if(res2 == 0){
+			       	 console.log("buzz") ;
+			    }else if(num == 'null' || typeof (num) != 'number'){
+			        console.log("false") ;
+			    }else{
+			        console.log(num) ;
+			    }     
+			}
+			
+			fizzBuzz(16);
+		</script>
+	</body>
+</html>

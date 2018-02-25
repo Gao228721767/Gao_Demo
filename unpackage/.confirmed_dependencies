@@ -1,0 +1,33 @@
+{
+	"index.html": {
+		"resources": [
+			"js/exif.js",
+			"js/app.min.js",
+			"js/jquery-1.11.2.min.js",
+			"css/cropper.css",
+			"images/1.jpg",
+			"css/mui.min.css",
+			"js/mui.js",
+			"js/cropper.min.js",
+			"js/mui.min.js",
+			"js/fastclick.js",
+			"images/2.jpg",
+			"images/20170510181832680riCA_347882_uploadkey0-com.jpg"
+		],
+		"refer": [
+			"cropper.html"
+		]
+	},
+	"cropper.html": {
+		"resources": [
+			"js/exif.js",
+			"js/app.min.js",
+			"css/cropper.css",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/cropper.min.js",
+			"js/jquery-1.11.2.min.js",
+			"js/fastclick.js"
+		]
+	}
+}

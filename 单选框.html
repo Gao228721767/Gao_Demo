@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding:0;}
+			body{
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				}
+			.box{width: 300px;height: 300px;background:#389FDF;} 
+			.txt:focus{color:#F00}
+		</style>
+	</head>
+	<body>
+		<input class="txt" type="text" />
+		<input id="btn" type="radio"/>
+		<div class="box">未选中</div>
+		<div></div>
+		eee3388 111
+		<script src="js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			$(function(){
+				var istrue=false;
+				$("#btn").click(function(){
+					var val=$("input")[0].value;
+					if(istrue){
+						$(this).prop("checked",false)
+						$(".box").html("未选中");
+						istrue=false;
+					}else{
+						// alert(val)
+						$(this).prop("checked",true)
+						$(".box").html(val);
+						istrue=true;
+					}
+				})
+			})
+
+
+
+			$.ajax({
+				url : 'https://ti.qq.com/mqqbase/cgi/medalwall/medalguide',
+				dataType: 'json',
+				type : 'POST',
+				xhrFields: {withCredentials: true},
+				crossDomain: true,contentType: "application/json",
+				success:function(data){
+					console.log(data)
+					if(data.errCode!=0){
+						// alert("你没登录?");
+						console.log("你没登录?");
+						return;
+					}
+					var d=new Date();
+					d.setTime(data.data.registDate);
+					alert("注册时间:"+d.toLocaleString()+" 第一个添加的好友:"+data.data.firstFriend)
+				}
+			});
+
+
+
+		</script>
+	</body>
+</html>

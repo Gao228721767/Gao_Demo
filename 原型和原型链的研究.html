@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型和原型链的研究</title>
+</head>
+<body>
+
+
+    <script>
+        onload=function(){
+            function Person () {
+                this.name = 'John';
+            }
+
+            Person.prototype = {
+                say: function() {
+                    console.log('Hello,' + this.name);
+                }
+            };
+            var person = new Person();
+            console.log(person)
+            person.say();//person.say is not a function
+        }
+    </script>
+</body>
+</html>

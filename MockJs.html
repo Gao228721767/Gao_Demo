@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mock.js</title>
+</head>
+<body>
+
+<div>
+    <button id="mockjs">打印数据</button>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://mockjs.com/dist/mock.js"></script>
+
+<script type="text/javascript">
+
+    //调用mock方法模拟数据
+    Mock.mock(
+        'http://mockjs', {
+            'data|1-10':[{'id|+1':1}],
+            "userName" : 'Gao_Sir',     //模拟名称
+            "age"      :  24,          //模拟年龄(1-100)
+            "color"    : "#42a4ff",    //模拟色值
+            "date"     : "@Date('2018-02-15')",  //模拟时间
+            "url"      : "http://www.baidu.com",     //模拟url
+            "content"  : "他是人才" //模拟文本
+        }
+    );
+
+    //ajax请求
+    $("#mockjs").click(function(){
+        $.ajax({
+            url        : "http://mockjs",    //请求的url地址
+            dataType   : "json",   //返回格式为json
+            async      : true, //请求是否异步，默认为异步，这也是ajax重要特性
+            data       : {},    //参数值
+            type       : "GET",   //请求方式
+            beforeSend : function() {
+                //请求前的处理
+            },
+            success: function(req) {
+                //请求成功时处理
+                console.log(req);
+            },
+            complete: function() {
+                //请求完成的处理
+            },
+            error: function() {
+                //请求出错处理
+            }
+        });
+    });
+</script>
+</body>
+</html>

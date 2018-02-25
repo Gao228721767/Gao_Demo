@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>全选（自写）</title>
+		<style>
+			ul,li{list-style: none;}
+			body{
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				}
+		</style>
+	</head>
+	<body>
+		<input type="checkbox" id="checkAllChange" value="0"/><span class="txt">全选</span>
+		<ul id="list">
+			<li class="item"><input type="checkbox" class="fruit" value="1" />香蕉</li>
+			<li class="item"><input type="checkbox" class="fruit" value="2" />苹果</li>
+			<li class="item"><input type="checkbox" class="fruit" value="3" />水蜜桃</li>
+			<li class="item"><input type="checkbox" class="fruit" value="4" />火龙果</li>
+			<li class="item"><input type="checkbox" class="fruit" value="5" />荔枝</li>
+			<li class="item"><input type="checkbox" class="fruit" value="6" />西瓜</li>
+			<li class="item"><input type="checkbox" class="fruit" value="7" />葡萄</li>
+		</ul>
+		<input type="button" value="确定" id="btn"/>
+		<div class="content"></div>
+
+		<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				//全选  取消全选
+			/*
+			 *
+				 $("#checkAllChange").click(function(){
+					if(this.checked == true){
+						$(".fruit").each(function(){
+							this.checked = true;
+						})
+					}else{
+						$(".fruit").each(function() {
+							this.checked = false;
+						});
+					}
+				});
+			*/
+				//简写
+				$("#checkAllChange").click(function(){
+				 	var isChecked = $(this).prop("checked");
+				 	$(".fruit").prop("checked", isChecked);
+
+				 	if(isChecked == true){
+				 		$(".txt").html("取消全选");
+				 	}else{
+				 		$(".txt").html("全选");
+				 	}
+				});
+
+
+				//联动
+			/*
+				$("#list").click(function () {
+					var fruitList = $(".fruit");
+			       	var flag = true;
+			        $.each(fruitList, function(index, item) {
+			            if (!$(item).prop('checked')) {
+			                flag = false;
+			            }
+			        });
+
+			        if (flag) {
+			            $("#checkAllChange").prop('checked', true);
+			            $(".txt").html("取消全选");
+
+			        } else {
+			            $("#checkAllChange").prop('checked', false);
+			            $(".txt").html("全选");
+			        }
+			    });
+
+			* */
+
+				//简写
+				$(".fruit").click(function(){
+					$("#checkAllChange").prop("checked",$(".fruit:checked").length == $(".fruit").length);
+					if($(".fruit:checked").length == $(".fruit").length){
+			            $(".txt").html("取消全选");
+			       } else {
+			            $(".txt").html("全选");
+			        }
+				})
+
+
+				//确定
+				var fruitName = [];
+				$("#btn").click(function(){
+					fruitName = [];
+					$(".content").empty();
+					$(".fruit:checked").each(function(){
+						fruitName.push($(this).parent().text());
+					})
+					for(var i = 0; i < fruitName.length; i++){
+						var span = $("<span>",{
+							text:fruitName[i],
+							class:'fruitname',
+							css:{
+								"color":"#d00",
+								"margin-right":"10px"
+							}
+						})
+						var br = $("<br/>");
+						$(".content").append(span).append(br);
+					}
+					console.log(fruitName)
+				})
+			})
+		</script>
+	</body>
+</html>

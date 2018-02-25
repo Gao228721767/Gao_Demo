@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>动态定位居中</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <style>
+        *{margin:0;padding:0;}
+        body,html{width: 100%;height: 100%;position: relative;}
+        .showBtn{width: 200px;height: 50px;background: #008080;color: #FFF;line-height: 50px;text-align: center;margin:20px auto;border-radius: 6px;cursor: pointer;}
+        /*例1*/
+        .masker{width:100%;height: 100%;position: fixed;left: 0;top: 0;background: rgba(0,0,0,.5);}
+        .box{width: 960px;height: 960px;background:#F0F0F0;border-radius: 4px;position: absolute;left: 0;top:20px;margin-bottom: 20px;}
+
+        /*例2*/
+        .masker_Con{width:100%;height: 100%;background: rgba(0,0,0,.5);position: fixed;left: 0;top: 0;overflow: auto;}
+        .masker_Con>.main_Con{width: 960px;height: 960px;background:#F0F0F0;border-radius: 4px;margin:20px 0;}
+    </style>
+</head>
+<body>
+    <div class="showBtn">显示弹窗</div>
+
+    <!-- 例1 -->
+    <div class="masker" style='display:none'></div>
+    <div class="box" style='display:none'></div>
+
+    <!-- 例2 -->
+    <div class="masker_Con" style='display:none;'>
+        <div class="main_Con"></div>
+    </div>
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        var w_Width = $(window).width();
+        // 例1
+        var b_Width = $('.box').width();
+        var m_Left = ($(window).width() - $('.box').width())/2;
+        $('.box').css('left',m_Left);
+
+
+        // 例2
+        var m_Width = $('.main_Con').width();
+        var mar_Left = ($(window).width() - $('.main_Con').width())/2;
+        $('.main_Con').css('margin-left',mar_Left);
+
+
+        // 显示弹窗
+        $('.showBtn').click(function(){
+            $('.masker_Con').show();
+        })
+    </script>
+</body>
+</html>

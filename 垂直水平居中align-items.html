@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin:0;padding:0;}
+			/*方案一*/
+			/*.box{width:500px;height: 500px;background:#389FDF;margin: 100px auto;display: flex;align-items: center;}
+			.box .alignItems{width: 100px;height: 100px;background: #2AC845;margin: 0 auto;}*/
+			
+			
+			/*方案二*/
+			/*.box{width:500px;height: 500px;background:#389FDF;margin: 100px auto;position:relative;}
+			.box .alignItems{width: 100px;height: 100px;background: #2AC845;position: absolute;left:0;top:0;right:0;bottom:0;margin:auto;}*/
+			
+			
+			/*方案三*/
+			.box{width:500px;height: 500px;background:#389FDF;text-align: center;display: table-cell;vertical-align: middle;}
+			.box .alignItems{width: 100px;height: 100px;background: #2AC845;display: inline-block;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="alignItems"></div>
+		</div>
+	</body>
+</html>

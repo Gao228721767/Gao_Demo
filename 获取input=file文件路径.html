@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取文件路径</title>
+    <style>
+        *{margin:0;padding:0;}
+        .upload{width: 100px;height: 40px;margin:10px auto;overflow: hidden;position: relative;background: #008080;text-align: center;line-height: 40px;color: #FFF;cursor: pointer;}
+        .upload_Btn{display: block;cursor: pointer;}
+        /*.upload>input{height: 40px;position: absolute;right: 0;top: 0;opacity: 0;filter:alpha(opacity=0);cursor: pointer;z-index: 10;}*/
+        .img{margin: 0 auto;display: block;}
+    </style>
+</head>
+<body>
+    <div class="upload">
+        <!-- <p class='upload_Btn'>上传</p> -->
+        <!-- <input class="upload_Input" type="file" accept="image/png,image/gif" name="file" value="" /> -->
+        <label for="inputFile" class="upload_Btn">
+            <span>上传</span>
+        </label>
+        <input type="file" id="inputFile" style="display: none" >
+    </div>
+    <img class="img" src="" alt="">
+
+
+
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        $('#inputFile').change(function(e){
+            if (window.FileReader) {
+                var file = e.target.files[0];
+                var reader = new FileReader();
+                if (file && file.type.match('image.*')) {
+                  reader.readAsDataURL(file);
+                }else{
+                    $('.img').attr('src', '');
+                }
+                //监听文件读取结束后事件
+                reader.onloadend = function (e) {
+                    $(".img").attr("src",e.target.result);    //e.target.result就是最后的路径地址
+                };
+            }
+        })
+
+
+        /*
+         *
+        if(window.FileReader) {
+            var file  = e.target.files[0];
+            var reader = new FileReader();
+            if (file && file.type.match('image.*')) {
+              reader.readAsDataURL(file);
+            } else {
+              img.css('display', 'none');
+              img.attr('src', '');
+            }
+            reader.onloadend = function (e) {
+              img.attr('src', reader.result);
+              img.css('display', 'block');
+            }
+          }
+          */
+
+
+    </script>
+</body>
+</html>

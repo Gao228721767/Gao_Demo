@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jq分页</title>
+<style type="text/css">
+*{ margin:0px; padding:0px;}
+ul{ list-style:none;}
+body{ font-size:12px;}
+/*分页*/
+#pageGro{ width:400px; height:25px; margin:0px auto; padding-top:30px;}
+#pageGro div,#pageGro div ul li{ font-size:12px; color:#999; line-height:23px; float:left; margin-left:5px;}
+#pageGro div ul li{ width:22px; text-align:center; border:1px solid #999; cursor:pointer;}
+#pageGro div ul li.on{ color:#fff; background:#3c90d9; border:1px solid #3c90d9;}
+#pageGro .pageUp,#pageGro .pageDown{ width:63px; text-indent:5px; border:1px solid #999; cursor:pointer;}
+</style>
+</head>
+
+<body>
+    <!--分页-->
+    <div id="pageGro">
+        <div class="pageUp">&lt; 上一页</div>
+        <div class="pageList">
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ul>
+        </div>
+        <div class="pageDown">下一页 &gt;</div>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/pageGroup.js"></script>
+    <script type="text/javascript">
+
+        //页面加载完成是与后台数据交互，后台返回总页数（如果只有总条数的话就自己算。Math.ceil(总条数/每条多少页)=总页数）
+        var pageCount = 11;//后台返回的总页数
+        icon_load(pageCount);
+        //点击分页按钮触发
+        $(document).on("click","#pageGro li",function(){
+            var pageNum = parseInt($(this).html());//获取当前页数
+            var selector = $(this);
+
+            //这里写ajax数据交互,json.html为后台，返回了总页数。实际开发中请删除json.html文件，
+            //$.post('json.html',{},function(rs){
+                //判断请求是否成功，后台一般会给一个标识。
+                //if(true){
+
+                    //成功后生成分页按钮
+                    num_click(pageCount,pageNum,selector);
+
+                //}else{
+                    //alert('这里就表示获取后台的数据失败了');
+                //}
+            //},'json');
+        });
+
+        //点击上一页触发
+        $(document).on("click","#pageGro .pageUp",function(){
+            var pageNum = parseInt($("#pageGro li.on").html());//获取当前页
+            var index = $("#pageGro ul li.on").index();//获取index
+
+            //这里写ajax数据交互,json.html为后台，返回了总页数。实际开发中请删除json.html文件，
+            //$.post('json.html',{},function(rs){
+                //判断请求是否成功，后台一般会给一个标识。
+                //if(true){
+
+                    //成功后生成分页按钮
+                    pageUp_click(pageCount,pageNum,index);
+
+                //}else{
+                    //alert('这里就表示获取后台的数据失败了');
+                //}
+            //},'json');
+        });
+
+        //点击下一页触发
+        $(document).on("click","#pageGro .pageDown",function(){
+            var pageNum = parseInt($("#pageGro li.on").html());//获取当前页
+            var index = $("#pageGro ul li.on").index();//获取index
+
+            //这里写ajax数据交互,json.html为后台，返回了总页数。实际开发中请删除json.html文件，
+            //$.post('json.html',{},function(rs){
+                //判断请求是否成功，后台一般会给一个标识。
+                //if(true){
+
+                    //成功后生成分页按钮
+                    pageDown_click(pageCount,pageNum,index);
+
+                //}else{
+                    //alert('这里就表示获取后台的数据失败了');
+                //}
+            //},'json');
+
+        });
+    </script>
+</body>
+</html>

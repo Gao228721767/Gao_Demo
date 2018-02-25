@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全选</title>
+</head>
+<body>
+<input type="checkbox" id="btn1">全选
+<div id="div1">
+    <input type="checkbox" name="id">
+    <input type="checkbox" name="id">
+    <input type="checkbox" name="id">
+</div>
+
+
+<script src="js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var oBtn1=document.getElementById('btn1');
+    var aDiv=document.getElementById('div1');
+    var aCheck = document.getElementsByName("id");
+    oBtn1.onclick=function(){
+        for(var i=0; i<aCheck.length; i++){
+            if(oBtn1.checked==true){
+                aCheck[i].checked=true;
+            }
+            else{
+                aCheck[i].checked=false;
+            }
+        }
+
+    };
+    for(var i=0; i<aCheck.length; i++){
+        var n=0;
+        aCheck[i].onclick=function(){
+            if(this.checked){
+                n+=1;//获取被选中的input元素长度
+            }else{
+                n-=1;
+            }
+            if(n==aCheck.length){
+                oBtn1.checked = true;
+            }else{
+                oBtn1.checked = false;
+            }
+        }
+    }
+    
+</script>
+
+</body>
+</html>

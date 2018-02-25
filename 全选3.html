@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+        <title>全选三</title>
+    </head>
+    <body>
+
+    <table width="100%" border="1">
+        <tr>
+            <th><input type="checkbox" id="chkAll"/></th>
+            <th>标题</th>
+        </tr>
+
+        <tr>
+            <td align="center"><input type="checkbox" name="id" value="11"/></td>
+            <td>这是测试Jquery控制checkbox全选的标题</td>
+        </tr>
+        <tr>
+            <td align="center"><input type="checkbox" name="id" value="11"/></td>
+            <td>这是测试Jquery控制checkbox全选的标题</td>
+        </tr>
+        <tr>
+            <td align="center"><input type="checkbox" name="id" value="11"/></td>
+            <td>这是测试Jquery控制checkbox全选的标题</td>
+        </tr>
+        <tr>
+            <td align="center"><input type="checkbox" name="id" value="11"/></td>
+            <td>这是测试Jquery控制checkbox全选的标题</td>
+        </tr>
+        <tr>
+            <td align="center"><input type="checkbox" name="id" value="11"/></td>
+            <td>这是测试Jquery控制checkbox全选的标题</td>
+        </tr>
+
+    </table>
+
+<script src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
+<script>
+$(function(){
+    $('#chkAll').click(function(ev){
+         $('INPUT[name=id]').attr('checked',$('#chkAll').prop('checked'));
+    });
+
+    $('INPUT[name=id]').click(function(ev){
+        $('#chkAll').attr('checked',
+            $('INPUT[name=id]:checked').length == $('INPUT[name=id]').length);
+    });
+});
+</script>
+    </body>
+</html>

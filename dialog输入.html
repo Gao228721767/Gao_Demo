@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        .mask{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top:0;
+            left: 0;
+            background: rgba(0,0,0,.5);
+        }
+        .mask_Con{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right:0;
+            top: 0;
+            margin: auto;
+            width: 70%;
+            height: 300px;
+            background: #FFF;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .mask_Con_header{
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid #CCC;
+            line-height: 44px;
+        }
+        .mask_Con_content{
+            height:210px ;
+            padding: 0 10px;
+            overflow: auto;
+        }
+        .inputMsg{
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .inputMsg input{
+            width:100%;
+            height: 25px;
+            margin-top: 10px;
+            outline: none;
+        }
+
+        .mask_Con_footer{
+            width: 100%;
+            height: 44px;
+            line-height: 44px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            border-top:1px solid #CCC;
+        }
+        .mask_Con_footer span{
+            text-align: center;
+            flex:1;
+        }
+        .mask_Con_footer span:first-child{
+            border-right: 1px solid #CCC;
+        }
+        .mask_Con_footer span:active{
+            background: #CCC;
+        }
+
+        .edit{
+            width: 100%;
+            height: 50px;
+            background:#E4E6CE;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <p class="edit">产品</p>
+    </div>
+
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            (function($){
+                $.fn.extend({
+                    inputDialog:function(opts){
+                        // 默认参数
+                        var defaults = {
+                            title:'填写信息',
+                            content:[],
+                            aSheet:['取消','确定'],
+                            callBack:function(e){
+
+                            }
+                        }
+
+                        // 合并参数
+                        var options = $.extend({},defaults,opts)
+
+                        var objThis = $(this);
+                        objThis.on('click',function(){
+                            init();
+                        })
+
+
+                        function init(){
+                            // 模板
+                            var template = `<div class="mask">
+                                                <div class="mask_Con">
+                                                    <div class="mask_Con_header">
+                                                        ${options.title}
+                                                    </div>
+                                                    <div class="mask_Con_content">
+
+                                                    </div>
+                                                    <div class="mask_Con_footer">
+
+                                                    </div>
+                                                </div>
+                                            </div>`;
+                            $('body').append(template)
+
+                            // 创建操作按钮
+                            options.aSheet.map(function(item,index){
+                                $('.mask_Con_footer').append(`<span>${item}</span>`)
+                            });
+
+                            // 创建输入框
+                            options.content.map(function(item,index){
+                                var inputCon = `
+                                    <div class="inputMsg">
+                                        <p class="input_title">${item.name}</p>
+                                        <p class="input_Con">
+                                            <input type="text" placeholder="${item.placeholder}"/>
+                                        </p>
+                                    </div>
+                                `
+                                $('.mask_Con_content').append(inputCon)
+                            })
+
+                            // 处理操作按钮
+                            $('.mask_Con_footer span').on('click',function(){
+                                if (options.callBack && typeof options.callBack == 'function') {
+                                    var _index = $(this).index()
+                                    if(_index == 1){
+                                        var valueArr = [];
+                                        var e = {};
+                                        $('.mask_Con_content .inputMsg').find('input').each(function(i,n){
+                                            e = {
+                                                value:n.value
+                                            }
+                                            valueArr.push(e)
+                                        })
+                                        console.log(valueArr)
+                                        options.callBack(valueArr)
+                                        $('.mask').remove();
+                                    }else{
+                                        $('.mask').remove();
+                                    }
+
+                                }
+                            })
+                        }
+                    }
+                })
+            })(jQuery)
+
+
+            $('.edit').inputDialog({
+                title:'填写信息',
+                content:[
+                    {name:'产品名称：',placeholder:'请输入产品名称'},
+                    {name:'产品信息：',placeholder:'请输入产品信息'},
+                    {name:'产品价格：',placeholder:'请输入产品价格'},
+                    {name:'产品规格：',placeholder:'请输入产品规格'},
+                ],
+                callBack:function(e){
+                    var self = this;
+                    var str = '';
+                    e.map(function(item,index){
+                        str += item.value
+                        if(str == ''){
+                            return
+                        }else{
+                            $('.edit').html(str)
+                        }
+
+                    })
+                }
+            })
+
+        })
+    </script>
+</body>
+</html>

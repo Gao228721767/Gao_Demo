@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <title>全屏滚动效果</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        ul,li{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        #wrapper{
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top:0;
+        }
+        .Wrapper_Con{
+            width: 100%;
+        }
+        .slider{
+            width: 100%;
+            text-align: center;
+        }
+        .page1{
+            background:#E4E6CE ;
+        }
+        .page2{
+            background:#6CE26C ;
+        }
+        .page3{
+            background:#BF4938 ;
+        }
+        .page4{
+            background:#42a4ff ;
+        }
+        .sliderSpot_wrapper{
+            position:fixed;
+            top: 50%;
+            right: 20px;
+            z-index: 9;
+            transform:translateY(-50%);
+        }
+        .slider_spot{
+            width: 5px;
+            height: 5px;
+            background: #FFF;
+            border-radius: 50%;
+            margin-bottom: 5px;
+        }
+        .slider_spot:last-child{
+            margin-bottom: 0;
+        }
+        .active{
+            background: #008080;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="Wrapper_Con">
+            <div class="page1 slider">第一屏</div>
+            <div class="page2 slider">第二屏</div>
+            <div class="page3 slider">第三屏</div>
+            <div class="page4 slider">第四屏</div>
+            <div class="page3 slider">第五屏</div>
+        </div>
+        <ul class="sliderSpot_wrapper">
+
+        </ul>
+    </div>
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(function(){
+            //定义全局变量
+            var num = 0;
+            var Flag = true;
+            //初始化函数
+            var PageIndex = {
+                Init:function(){
+                    var vh = $(window).height();
+                    $('.slider').css('height',vh)
+                    $('.slider:last-child').css('height','auto')
+
+                    document.body.style.overflow='hidden';
+                    PageIndex.windowResize();
+                    // PageIndex.createdSpot();
+                    PageIndex.MouseWheel();
+                },
+                windowResize:function(){
+                    $(window).resize(function(event){
+                        var vh = $(window).height();
+                        var arrivePoint = num * $(window).height();
+                        $('.slider').css('height',vh)
+                        PageIndex.showAnimate(arrivePoint);
+                    })
+                },
+                MouseWheel:function(){
+                    $(document).on('mousewheel DOMMouseScroll',function(e){
+                        var delta = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
+                        (e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1));
+                        if(Flag){
+                            Flag = false;
+                            if(delta < 0){
+                                num++;
+                                $('.slider_spot').eq(num).addClass('active').siblings().removeClass('active');
+                                /*if(num == $('.slider').length){
+                                    num = 1
+                                    $("#wrapper").css('top',0)
+                                    $('.slider_spot').eq(num).addClass('active').siblings().removeClass('active');
+                                };*/
+                                if(num > $('.slider').length-1){
+                                    num = $('.slider').length-1;
+                                }
+                                //处理最后一屏不是内容不足全屏的情况
+                                if(num == $('.slider').length-1 && $('.slider:last-child').height() != $(window).height()){
+                                    var arrivePoint = (num-1) * $(window).height() + $('.slider:last-child').height();
+                                }else{
+                                    var arrivePoint = num * $(window).height();
+                                }
+                                PageIndex.showAnimate(arrivePoint)
+                            }else{
+                                num--;
+                                if(num < 0){
+                                    num = 0;
+                                }
+                                $('.slider_spot').eq(num).addClass('active').siblings().removeClass('active');
+                                var arrivePoint = num * $(window).height();
+                                PageIndex.showAnimate(arrivePoint)
+                            }
+
+                        }
+                    })
+                },
+                showAnimate:function(params){
+                    $("#wrapper").animate({'top':-params+'px'},1000,function(){
+                        Flag = true
+                    })
+                },
+                createdSpot:function(){
+                    for(var i=0;i<$('.slider').length;i++){
+                        $('<li class="slider_spot"></li>').appendTo('.sliderSpot_wrapper');
+                    }
+                    $('.slider_spot').eq(num).addClass('active');
+                }
+            }
+
+            //页面初始化
+            PageIndex.Init();
+        })
+
+    </script>
+</body>
+</html>

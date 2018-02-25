@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<textarea ></textarea>
+		<span style="color:#666"></span>
+
+		<script>
+			var len=50;
+			var txt=$("textarea");
+			var tinfo=$("span").html(txt.val().length+"/"+len);
+			var timer=null;
+			txt.focus(function(){
+				timer=setInterval(function(){
+					if(txt.val().length>len){
+						tinfo.css("color","red");
+					}else{
+						tinfo.css("color","#666");
+					}
+						tinfo=$("span").html(txt.val().length+"/"+len)
+
+				},0)//监测的时常可以自定义。别太短，拖慢页面效率得不偿失。
+			})
+
+			txt.blur(function(){
+				clearInterval(timer);
+			})
+
+		</script>
+	</body>
+</html>

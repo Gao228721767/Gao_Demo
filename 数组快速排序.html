@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象排序</title>
+</head>
+<body>
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        $(function(){
+            var arr = [25,16,21,8,54,14,5,18];
+            var arr1 = [
+                {id:3},
+                {id:14},
+                {id:7},
+                {id:8},
+                {id:12},
+                {id:30},
+                {id:1}
+            ];
+
+            //排序方式
+            function sortId(a,b){
+               return a.id - b.id;            //升序
+               // return b.id - a.id;            //降序
+            }
+
+            arr1.sort(sortId);
+            console.log(arr1);
+
+
+            for(var i = 0; i < arr1.length; i++){
+                document.write('id:' + arr1[i].id + '<br/>');
+            }
+
+
+        })
+    </script>
+</body>
+</html>

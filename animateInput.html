@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" style="width:200px;">
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        $('input').on('focus',function(){
+            $(this).animate({width:'100px'},300)
+        })
+    </script>
+</body>
+</html>

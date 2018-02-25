@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤小数点</title>
+</head>
+<body>
+
+
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        //过滤小数点
+        function filterNum(priceNum){
+            var Price = priceNum.toString().split(".")[1];
+            if(Price == "00"){
+                integerNum = priceNum.toString();
+                priceNum = integerNum.substring(0,integerNum.indexOf('.'));
+                return priceNum;
+            }else{
+                return priceNum;
+            }
+        }
+
+        var str = '12335587的吉萨的积分啥地方看的搜索框'
+        console.log(parseInt(str));
+
+        document.write(filterNum('7,99.98')+'<br/>')
+        document.write(filterNum('15.00')+'<br/>')
+    </script>
+</body>
+</html>

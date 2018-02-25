@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{margin:0;padding:0;}
+        .wrapper{width: 1100px;height: 500px;background: #ccc;margin:20px auto;padding:10px 10px;}
+        .left,.center,.right{height: 100%;float: left;}
+        .left,.right{width: 500px;height: 100%;background: #FFF;}
+        .left p{height: 30px;line-height: 30px;text-indent: 10px;cursor:pointer;}
+        .left p:nth-child(even){background: #f3f3f3;}
+        .right p{height: 30px;line-height: 30px;text-indent: 10px;cursor:pointer;}
+        .right p:nth-child(odd){background: #f3f3f3;}
+        .center{width: 100px;background: #f2f2f2;}
+        .center .common{width: 80%;height: 40px;background: #008080;font-size: 40px;line-height: 35px;color: #FFF;text-align: center;cursor: pointer;}
+        .toRight{margin:200px 10% 0 10%;}
+        .toLeft{margin:10px 10% 0 10%;}
+        .active{background: #c3c3c3!important;}
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="left"></div>
+        <div class="center">
+            <div class="toRight common">&gt;</div>
+            <div class="toLeft common">&lt;</div>
+        </div>
+        <div class="right"></div>
+    </div>
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        var arr = ['数据1','数据2','数据3','数据4','数据5'];
+        $(arr).each(function(i,n){
+            var str = '<p class="LeftList">'+ n +'</p>';
+            $('.left').append(str);
+        })
+        toMove('.LeftList');
+
+
+        function toMove(dataList){
+            $(dataList).on('click',function(){
+                var that = this;
+                if($(this).hasClass('active')){
+                    $(this).removeClass('active');
+                }else{
+                    $(this).addClass('active')
+                }
+            })
+        }
+
+
+        $('.toRight').on('click',function(){
+            $('.right').empty();
+            $('.LeftList').each(function(i,n){
+                if($(n).hasClass('active')){
+                    var str1 = '<p class="rightList">'+ $(n).text() +'</p>';
+                    $('.right').append(str1)
+                }
+            })
+            toMove('.rightList');
+        })
+
+        $('.toLeft').on('click',function(){
+            //alert(1)
+            $('.rightList').each(function(i,n){
+                if($(n).hasClass('active')){
+                    $(n).remove();
+                }
+            })
+        })
+    </script>
+</body>
+</html>

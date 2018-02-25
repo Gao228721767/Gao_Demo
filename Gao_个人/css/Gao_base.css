@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* html{font-size:20px}
+@media only screen and (min-width:320px){html{font-size:17.06px!important}}
+@media only screen and (min-width:375px){html{font-size:20.00px!important}}
+@media only screen and (min-width:400px){html{font-size:21.33px!important}}
+@media only screen and (min-width:414px){html{font-size:22.08px!important}}
+@media only screen and (min-width:480px){html{font-size:25.60px!important}}
+@media only screen and (min-width:600px){html{font-size:32.00px!important}}
+@media only screen and (min-width:750px){html{font-size:40.00px!important}} */
+
+
+html, body, div, span, applet, object, iframe, h1, h2, h3,
+h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address,
+big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot,
+thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+:focus {
+    outline: 0;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+caption, th, td {
+    text-align: left;
+    font-weight: normal;
+}
+a img, iframe {
+    border: none;
+}
+ol, ul {
+    list-style: none;
+}
+input, textarea, select, button {
+    font-size: 100%;
+    font-family: inherit;
+}
+select {
+    margin: inherit;
+}
+/* Fixes incorrect placement of numbers in ol’s in IE6/7 */
+ol { margin-left:2em; }
+/* == clearfix == */
+.clearfix:after {
+    content: “.”;
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix {display: inline-block;}
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}

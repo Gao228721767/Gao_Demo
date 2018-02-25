@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>删除</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        ul{
+            width: 500px;
+            height: 200px;
+            margin:0 auto;
+        }
+        ul li{
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px solid #CCC;
+        }
+        ul li span:first-child{
+            float: left;
+        }
+        ul li span:last-child{
+            float: right;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .mask{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top:0;
+            background: rgba(0,0,0,.5);
+        }
+        .mask_Con{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right:0;
+            top: 0;
+            margin: auto;
+            width: 350px;
+            height: 250px;
+            background: #FFF;
+        }
+        .mask_Con_header{
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background: #42a4ff;
+            color: #FFF;
+            position: relative;
+        }
+        .mask_Con_header span{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 10px;
+            right: 0px;
+            line-height: 30px;
+            cursor:pointer ;
+        }
+        .mask_Con_content{
+            height: 150px;
+            border-bottom: 1px solid #CCC;
+            text-align: center;
+            line-height: 150px;
+            font-size: 20px;
+        }
+        .mask_Con_footer{
+            height: 49px;
+            line-height: 49px;
+            padding: 0 10px;
+        }
+        .mask_Con_footer span{
+            padding: 5px 10px;
+            background: #42a4ff;
+            color: #FFF;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .mask_Con_footer span:first-child{
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><span>栏目1</span><span class="deleteBtn">删除</span></li>
+        <li><span>栏目2</span><span class="deleteBtn">删除</span></li>
+        <li><span>栏目3</span><span class="deleteBtn">删除</span></li>
+        <li><span>栏目4</span><span class="deleteBtn">删除</span></li>
+        <li><span>栏目5</span><span class="deleteBtn">删除</span></li>
+    </ul>
+
+
+
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+
+            (function($){
+                $.extend({
+                    dialog:function(opts){
+                        // 默认参数
+                        var defaults = {
+                            title:'标题',
+                            tips:'确定删除?',
+                            aSheet:['取消','确定'],
+                            aSheetPosition:'right',
+                            callBack:function(e){
+
+                            },
+                            CloseCallBackFun:function(){
+
+                            }
+                        }
+
+                        // 合并参数
+                        var options = $.extend({},defaults,opts)
+
+                        // 模板
+                        var dialogBox = `<div class="mask">
+                                            <div class="mask_Con">
+                                                <div class="mask_Con_header">
+                                                    ${options.title}
+                                                    <span class="cancle">X</span>
+                                                </div>
+                                                <div class="mask_Con_content">
+                                                    ${options.tips}
+                                                </div>
+                                                <div class="mask_Con_footer" style="text-align:${options.aSheetPosition}">
+
+                                                </div>
+                                            </div>
+                                        </div>`;
+                        $('body').append(dialogBox)
+
+                        // 创建操作按钮
+                        options.aSheet.map(function(item,index){
+                            $('.mask_Con_footer').append(`<span>${item}</span>`)
+                        })
+
+
+                        // 关闭对话框
+                        $('.cancle').on('click',function(){
+                            options.CloseCallBackFun();
+                            $('.mask').remove();
+                        })
+
+                        // 点击操作按钮
+                        $('.mask_Con_footer span').on('click',function(){
+                            if (options.callBack && typeof options.callBack == 'function') {
+                                var _index = $(this).index();
+                                var e = {
+                                    index:_index
+                                }
+                                options.callBack(e)
+                                $('.mask').remove();
+                            }
+                        })
+                    }
+                })
+            })(jQuery)
+
+
+
+
+            //点击删除按钮
+            $('.deleteBtn').on('click',function(){
+                var that = this;
+                $.dialog({
+                    title:'提示',
+                    callBack:function(e){
+                        if(e.index == 1){
+                            $(that).parent().remove();
+                            alert('删除成功')
+                        }
+                    },
+                    CloseCallBackFun:function(){
+                        alert('取消删除')
+                    }
+                })
+            })
+            $.dialog({
+                title:'提示',
+                tips:'图片过大，请重新上传图片！',
+                aSheet:['确定'],
+                aSheetPosition:'center',
+                callBack:function(e){
+
+                }
+            })
+
+
+        })
+
+
+    </script>
+</body>
+</html>

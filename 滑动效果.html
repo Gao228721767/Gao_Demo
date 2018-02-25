@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>滑动效果</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		html,body{
+			position: relative;
+		}
+		.wrapper{
+			width: 100%;
+			position: relative;
+		}
+		.content{
+			height: 500px;
+		}
+		.Con_Top{
+			height: 200px;
+			background: #42a4ff;
+		}
+		.Con_Bottom{
+			height: 300px;
+			background: #008080;
+		}
+		.Tabs{
+			width: 100%;
+		}
+		.Tabs_con{
+			width: 100%;
+			height: 40px;
+			background: #fab128;
+			display: flex;
+		}
+		.tab{
+			flex:1;
+			line-height: 40px;
+			text-align: center;
+		}
+		.List_con{
+
+		}
+		.list{
+			width: 100%;
+			height: 400px;
+			background:#31d21a ;
+			text-align: center;
+			line-height: 400px;
+			display: none;
+		}
+
+		.active{
+			background:#f65858 ;
+			color: #FFF;
+		}
+		.show{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="content">
+			<div class="Con_Top"></div>
+			<div class="Con_Bottom"></div>
+		</div>
+		<div class="Tabs">
+			<!--按钮组-->
+			<div class="Tabs_con">
+				<div class="tab active">按钮1</div>
+				<div class="tab">按钮2</div>
+				<div class="tab">按钮3</div>
+				<div class="tab">按钮4</div>
+				<div class="tab">按钮5</div>
+			</div>
+			<!--页面组-->
+			<div class="List_con">
+				<div class="list show">页面1</div>
+				<div class="list">页面2</div>
+				<div class="list">页面3</div>
+				<div class="list">页面4</div>
+				<div class="list">页面5</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+
+	<script>
+		$(function(){
+			$(".tab").click(function() {
+	            var index = $(this).index();
+	            $(this).addClass("active").siblings().removeClass("active");
+	            $(".list").eq(index).addClass("show").siblings().removeClass("show");
+	        });
+
+			$('body').on('touchmove', function(e) { 
+			    var WinTop = $(window).scrollTop();
+			    var scrollHeight = $(document).height() - $(window).height() -100;
+			    
+			   
+			});
+		})
+	</script>
+</body>
+</html>

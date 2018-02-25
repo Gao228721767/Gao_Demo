@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="box1">点击</div>
+    <input class="phoneInput" type="text" placeholder="请输入手机号码">
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+
+        /*
+            $.fn.extend({})
+         */
+
+        (function($){
+            $.fn.extend({
+                alertWin:function(para){
+                    var objThis = $(this);
+                    objThis.off('click').on('click',function(){
+                        alert(1)
+                    })
+                }
+            })
+        })(jQuery)
+
+        $('.box1').alertWin();
+
+
+        /*
+            $.extend({})
+         */
+        $.extend({
+            //验证手机号码
+            checkPhone:function(v){
+                var regPhone = /^1[3|4|5|7|8]\d{9}$/;
+                return regPhone.test(v);
+            }
+        })
+
+        $('.phoneInput').on('blur',function(){
+            var phone = $(this).val();
+            if(!$.checkPhone(phone)){
+                alert('请输入正确的电话号码');
+            }
+        })
+
+    </script>
+</body>
+</html>

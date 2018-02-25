@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="accordion">
+        <li>样板间</li>
+        <li>收藏</li>
+    </ul>
+
+
+    <ul id="contUl">
+
+    </ul>
+
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+         $(function(){
+            var arr = [];
+            var arr1 = [];
+            var arr2 = [];
+            var data = [
+                {
+                    "name":"样板间",
+                    "img":[
+                        {"image":"images/下载.jpg"},
+                        {"image":"images/下载.jpg"},
+                        {"image":"images/下载.jpg"},
+                        {"image":"images/下载.jpg"},
+                        {"image":"images/下载.jpg"}
+                    ]
+                },
+                {
+                    "name":"收藏",
+                    "img":[
+                        {"image":"images/logo.png"},
+                        {"image":"images/logo.png"},
+                        {"image":"images/logo.png"},
+                        {"image":"images/logo.png"},
+                        {"image":"images/logo.png"}
+                    ]
+                }
+            ]
+            var dIndex = [
+                {
+                    "name":"门窗",
+                    "type":[
+                        {
+                            "name":"门",
+                            "img":[
+                                {"image":"images/下载.jpg"},
+                                {"image":"images/下载.jpg"},
+                                {"image":"images/下载.jpg"},
+                                {"image":"images/下载.jpg"},
+                                {"image":"images/下载.jpg"}
+                            ]
+                        },
+                        {
+                            "name":"窗",
+                            "img":[
+                                {"image":"images/下载.jpg"},
+                                {"image":"images/下载.jpg"},
+                                {"image":"images/下载.jpg"},
+                                {"image":"images/下载.jpg"},
+                                {"image":"images/下载.jpg"}
+                            ]
+                        }
+                    ]
+                }
+            ]
+            $.each(data, function(i) {
+                var name = data[i].name;
+                var Img = data[i].img;
+                arr.push(name);
+                arr1.push(Img);
+            });
+            console.log(arr1)
+            $('.accordion>li').on('click', function(){
+                $("#contUl").empty();
+                var Text = $(this).text();
+                var Index = $(this).index();
+                var that = this;
+                $.each(arr, function(j) {
+                    if( Text == arr[j] ){
+                        var Jdk = arr1[j];
+                        $.each(Jdk, function(k) {
+                            var JImg = Jdk[k].image;
+                            $('<li id="draggable'+(k+1)+'" class="product"><img src=" '+ JImg +' "/>').appendTo('#contUl');
+                        })
+                    }
+                });
+            })
+        })
+    </script>
+</body>
+</html>

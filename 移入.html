@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>移入</title>
+		<link rel="stylesheet" type="text/css" href="css/animate.min.css"/>
+		<style type="text/css">
+			*{margin:0;padding:0;}
+			img{display: block;}
+			html,body{width: 100%;height: 100%;}
+			.box{width: 600px;height: 350px;border: 1px solid #ccc;position: absolute;left: 0;top:0;right:0;bottom: 0;margin: auto;overflow: hidden;}
+			.img{animate-duration: 0.5s;    		/*动画持续时间*/
+ 					 animate-delay: 0s;   			/*动画延迟时间*/
+    				 animate-iteration-count: 2;    /*动画执行次数*/
+    				 }
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<img class="img" src="images/2.jpg" alt="" style="width: 100%;height:100%;display: none;"/>
+		</div>
+		
+		<script src="js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(".box").bind("mouseenter mouseleave",
+				function(e) {
+					var w = $(this).width();
+					var h = $(this).height();
+					var x = (e.pageX - this.offsetLeft - (w / 2)) * (w > h ? (h / w) : 1);
+					var y = (e.pageY - this.offsetTop - (h / 2)) * (h > w ? (w / h) : 1);
+					var direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4;
+					
+					if(e.type == 'mouseenter'){
+						switch (direction) {
+						  case 0:
+							$(".box>img").addClass('img animated fadeInDownBig');
+							break;
+						  case 1:
+							$(".box>img").addClass('img animated fadeInRightBig');
+							break;
+						  case 2:
+							$(".box>img").addClass('img animated fadeInUpBig');
+							break;
+						  case 3:
+							$(".box>img").addClass('img animated fadeInLeftBig');
+							break;
+						}
+						$(".box>img").css("display","block")
+					}else{
+						switch (direction) {
+						  case 0:
+							$(".box>img").removeClass();
+							break;
+						  case 1:
+							$(".box>img").removeClass();
+							break;
+						  case 2:
+							$(".box>img").removeClass();
+							break;
+						  case 3:
+							$(".box>img").removeClass();
+							break;
+						}
+						$(".box>img").css("display","none")
+					}
+				});
+		</script>
+	</body>
+</html>

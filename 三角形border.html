@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>border 的运用</title>
+    <style>
+        *{margin:0;padding:0;}
+        .wrapper{width: 1000px;height: 600px;border:1px solid #CCC;margin:50px auto;padding: 10px 10px;}
+        .box1{width: 60px;height: 50px;background: #42a4ff;position: relative;}
+        .box1_1{width: 0;height: 0;border-left:50px solid #FFF;border-bottom:25px solid transparent;border-top:25px solid transparent;position: absolute;left: 5px;top: 0;}
+        .box1_2{width: 0;height: 0;border-left:50px solid #42a4ff;border-bottom:25px solid transparent;border-top:25px solid transparent;position: absolute;left:0;top: 0;}
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 三角形 -->
+        <div class="box1">
+            <div class="box1_1"></div>
+            <div class="box1_2"></div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
