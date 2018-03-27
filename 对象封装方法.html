@@ -12,10 +12,10 @@
     <script>
     var Index = {
         init:function(){
-            Index.buildEvent();
+            this.buildEvent();
         },
         buildEvent:function(){
-            $('#Btn').on('click',Index.alertEvent);
+            $('#Btn').on('click',this.alertEvent);
         },
         alertEvent:function(){
             alert('触发点击事件');
