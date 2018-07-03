@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>loading1</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .madal-wrapper {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+
+
+    .madal-content {
+        width: 500px;
+        background: #FFF;
+        margin: 0 auto;
+        margin-top: 100px;
+        position: relative;
+    }
+
+
+    .madal-content p {
+        text-align: center;
+        line-height: 30px;
+        overflow: hidden;
+        width: 350px;
+        margin: 0 auto;
+    }
+	.madal-content p span:first-child{
+		float: left;
+	}
+	.madal-content p span:last-child{
+		float: right;
+	}
+
+    .madal-content p img {
+        width: 30px;
+        height: 30px;
+        vertical-align: bottom;
+        visibility: hidden;
+    }
+
+    .circle-progress {
+        height: 120px;
+    }
+
+    .circle-wapper {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        transform: translateX(-50%);
+        box-sizing: border-box;
+    }
+
+    .text {
+        position: absolute;
+        left: 30px;
+        top: 40px;
+        font-family: "Microsoft YaHei";
+        font-weight: bold;
+        color: #00a0e9;
+    }
+
+    .rect {
+        position: absolute;
+        width: 50px;
+        height: 100px;
+        overflow: hidden;
+    }
+
+    .right {
+        left: 50px;
+    }
+
+    .circle {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        border: 5px solid #00a0e9;
+    }
+
+    .circle_right {
+        left: -50px;
+        clip: rect(0px 50px 100px 0px);
+        animation: roll 1s linear 0s 1 forwards;
+    }
+
+    .circle_left {
+        clip: rect(0px 100px 100px 50px);
+        animation: roll 1s linear 1s 1 forwards;
+    }
+
+    .closeBtn{
+        display: inline-block;
+        width: 100px;
+        cursor: pointer;
+        height: 40px;
+        border-radius: 4px;
+        background: #42a4ff;
+        text-align: center;
+        color: #FFF;
+        line-height: 40px;
+        margin:20px 0 20px 0;
+    }
+
+    @keyframes roll {
+        0% {
+            transform: rotate(0deg)
+        }
+        100% {
+            transform: rotate(180deg)
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="madal-wrapper">
+        <div class="madal-content">
+            <div class="circle-progress">
+                <div class="circle-wapper">
+                    <div class="rect right">
+                        <div class="circle circle_right"></div>
+                    </div>
+                    <div class="rect left">
+                        <div class="circle circle_left"></div>
+                    </div>
+                    <div class="text"><span id="num">0</span><span>%</span></div>
+                </div>
+            </div>
+            <p><span>正在连接省级大数据平台！</span><span><img src="images/finish.png" alt="完成" /></span></p>
+            <p><span>正在获取基本、优质均衡相关基础数据！</span><span><img src="images/finish.png" alt="完成" /></span></p>
+            <p><span>正在导入系统数据库！</span><span><img src="images/finish.png" alt="完成" /></span></p>
+            <p><span>正在生成优质均衡报表！</span><span><img src="images/finish.png" alt="完成" /></span></p>
+            <p><span class="closeBtn" style="float:none">确定</span></p>
+        </div>
+    </div>
+    <button>抽取数据</button>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script>
+    $(function() {
+
+
+
+        function init() {
+            $('button').on('click', function() {
+                $('.madal-wrapper').show(0, function() {
+                    initProgress();
+                })
+            })
+
+            $('.closeBtn').on('click',function(){
+                $('.madal-wrapper').hide();
+            })
+        }
+
+
+
+        function initProgress(j) {
+            var timer, i = 0;
+            add();
+
+            function add() {
+                var timer = setTimeout(function() {
+                    add();
+                }, 20);
+                $('#num').text(i);
+	            if (i == 25) {
+	                $('.madal-content p img').eq(0).css({ 'visibility': 'visible' })
+	            } else if (i == 50) {
+	                $('.madal-content p img').eq(1).css({ 'visibility': 'visible' })
+	            } else if (i == 75) {
+	                $('.madal-content p img').eq(2).css({ 'visibility': 'visible' })
+	            } else if (i == 100) {
+	                $('.madal-content p img').eq(3).css({ 'visibility': 'visible' })
+	            }
+	            i < 100 ? i++ : clearTimeout(timer)
+            }
+        }
+
+
+
+
+        init();
+
+    })
+    </script>
+</body>
+
+</html>
