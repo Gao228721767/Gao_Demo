@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Look-up数据和业务逻辑分离</title>
+</head>
+
+<body>
+    <script>
+        function showGrace(grace, level, levelForGrace) {
+            for (let i = 0; i < level.length; i++) {
+                if (grace >= level[i]) {
+                    return levelForGrace[i];
+                }
+            }
+            //如果不存在，那么就是分数很低，返回最后一个
+            return levelForGrace[levelForGrace.length - 1];
+        }
+        let graceForLevel = [700, 650, 600, 550];
+        let levelText = ['信用极好', '信用优秀', '信用良好', '信用中等', '信用较差'];
+    </script>
+
+
+    <script>
+        function getCityForScenic(scenic) {
+            let cityConfig = [{
+                    scenic: '广州塔',
+                    city: '广州'
+                },
+                {
+                    scenic: '花城广场',
+                    city: '广州'
+                },
+                {
+                    scenic: '白云山',
+                    city: '广州'
+                },
+                {
+                    scenic: '西湖',
+                    city: '杭州'
+                },
+                {
+                    scenic: '湘湖',
+                    city: '杭州'
+                },
+                {
+                    scenic: '京杭大运河',
+                    city: '杭州'
+                },
+                {
+                    scenic: '砂之船生活广场',
+                    city: '杭州'
+                }
+            ]
+            for (let i = 0; i < cityConfig.length; i++) {
+                if (cityConfig[i].scenic === scenic) {
+                    return cityConfig[i].city
+                }
+            }
+        }
+    </script>
+
+    <script>
+        function formatDate(timeStr){
+            //获取当前时间戳
+            let _now=+new Date();
+            //求与当前的时间差
+            let se=_now-timeStr;
+            let _text='';
+            //求上一年最后一秒的时间戳
+            let lastYearTime=new Date(new Date().getFullYear()+'-01-01 00:00:00')-1;
+            //把时间差添加进去（当前时间戳与上一年最后一秒的时间戳的差）添加进去，如果时间差（se）超过这个值，则代表了这个时间是上一年的时间。
+            //DATE_LEVEL.unshift(_now-lastYearTime);
+            const DATE_LEVEL={
+              month:2592000000,
+              day:86400000,
+              hour:3600000,
+              minter:60000,
+            }
+            let handleFn=[
+                {
+                    time:DATE_LEVEL.month,
+                    fn:function(timeStr){
+                        return (new Date(timeStr).getMonth()+1)+'月'+new Date(timeStr).getDate()+'日';
+                    }
+                },
+                {
+                    time:DATE_LEVEL.day,
+                    fn:function(timeStr){
+                        return Math.floor(se/DATE_LEVEL.day)+'天前';
+                    }
+                },
+                {
+                    time:DATE_LEVEL.hour,
+                    fn:function(timeStr){
+                        return Math.floor(se/DATE_LEVEL.hour)+'小时前';
+                    }
+                },
+                {
+                    time:DATE_LEVEL.minter,
+                    fn:function(timeStr){
+                        return Math.ceil(se/DATE_LEVEL.minter)+'分钟前';
+                    }
+                }
+            ];
+            //求上一年最后一秒的时间戳
+            let lastYearTime=new Date(new Date().getFullYear()+'-01-01 00:00:00')-1;
+            //把时间差（当前时间戳与上一年最后一秒的时间戳的差）和操作函数添加进去，如果时间差（se）超过这个值，则代表了这个时间是上一年的时间。
+            handleFn.unshift({
+                time:_now-lastYearTime,
+                fn:function(timeStr){
+                    if(se>DATE_LEVEL.month){
+                        return new Date(timeStr).getFullYear()+'年'+(new Date(timeStr).getMonth()+1)+'月'+new Date(timeStr).getDate()+'日';
+
+                    }
+                },
+            });
+            let result='';
+            for(let i=0;i<handleFn.length;i++){
+                if(se>=handleFn[i].time){
+                    result=handleFn[i].fn(timeStr);
+                    if(result){
+                        return result;
+                    }
+                }
+            }
+            //如果发布时间小于1分钟，之际返回1分钟
+            return result='1分钟前'
+        }
+    </script>
+
+
+    <script>
+        let payChanneForChinese = {
+            'cash': '现金',
+            'check': '支票',
+            'draft': '汇票',
+            'zfb': '支付宝',
+            'wx_pay': '微信支付',
+        };
+        function getPayChanne(tag,chineseConfig){
+            return chineseConfig[tag];
+        }
+        getPayChanne('cash',payChanneForChinese);
+    </script>
+</body>
+
+</html>

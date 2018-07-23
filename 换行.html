@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>判断文本域换行</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .matrix {
+        width: 500px;
+        overflow: hidden;
+        margin: 20px auto;
+    }
+
+    .matrix-left,
+    .matrix-right {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .matrix-right p {
+        margin-bottom: 10px;
+    }
+
+    table {
+        width: 600px;
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    table tr td {
+        padding:3px;
+        width: 12%;
+    }
+
+    table tr th {
+        width: 30%;
+    }
+
+    table tbody td span {
+        display: inline-block;
+        width: 18px;
+        height: 16px;
+        background: url('images/radio.gif') no-repeat;
+        margin: 0 auto;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="matrix">
+        <div class="matrix-left">
+            <textarea class="matrix-rows-title" cols="30" rows="10"></textarea>
+        </div>
+        <div class="matrix-right">
+            <p>
+                <span><input type="text" class="matrix-cols-title" value="很满意"/></span>
+            </p>
+            <p>
+                <span><input type="text" class="matrix-cols-title" value="满意"/></span>
+            </p>
+            <p>
+                <span><input type="text" class="matrix-cols-title" value="不满意"/></span>
+            </p>
+            <p>
+                <span><input type="text" class="matrix-cols-title" value="很不满意"/></span>
+            </p>
+        </div>
+    </div>
+    <div class="example">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <!-- <td>很满意</td>
+                    <td>满意</td>
+                    <td>不满意</td>
+                    <td>很不满意</td> -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr>
+                    <th>外观</th>
+                    <td><span></span></td>
+                    <td><span></span></td>
+                    <td><span></span></td>
+                    <td><span></span></td>
+                </tr>
+                <tr>
+                    <th>功能</th>
+                    <td><span></span></td>
+                    <td><span></span></td>
+                    <td><span></span></td>
+                    <td><span></span></td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var initdataArr = ['外观', '性能']; // 单选初始化数据
+        var TextAreaVal = getTextAreaVal(initdataArr);
+
+        // 初始化
+        function init() {
+
+            initData();
+
+            bindEvents();
+
+        }
+
+        function initData() {
+            $('.matrix-rows-title').val(TextAreaVal);
+            createMatrixRadio();
+        }
+
+        function bindEvents() {
+
+            // 获得焦点
+            $('.matrix-rows-title').on('focus', function() {
+                var rowsTitle = $('.matrix-rows-title').val();
+                if (rowsTitle == TextAreaVal) {
+                    $(this).val('');
+                }
+            })
+
+            // 失去焦点
+            $('.matrix-rows-title').on('blur', function() {
+                var rowsTitle = $('.matrix-rows-title').val();
+                if (rowsTitle == '') {
+                    $(this).val(TextAreaVal);
+                    createMatrixRadio();
+                } else {
+                    var str = getTextAreaVal(getFormatCode(rowsTitle));
+                    $('.matrix-rows-title').val(str);
+                }
+            })
+
+            // 内容改变
+            $('.matrix-rows-title').on('change', function() {
+                createMatrixRadio();
+            })
+
+            //改变列标题
+            $('.matrix-cols-title').on('change',function(){
+                var colsTitleVal = $(this).val();
+                var _index = $(this).parent().parent().index();
+                $('.example table thead tr').find('td').eq(_index).text(colsTitleVal);
+            })
+        }
+
+        // 开始创建
+        function createMatrixRadio() {
+            var $colsTd = '';
+            var $rowsTr = '';
+            var $rowsTd = '';
+
+            var rowsTitle = $('.matrix-rows-title').val();
+
+            // 创建列
+            var $cols = $('.matrix-right p');
+            $cols.each(function(i, n) {
+                var colsTitle = $(n).find('span input').val();
+                $colsTd += '<td>' + colsTitle + '</td>';
+            })
+            $('.example table thead tr').empty().append($colsTd);
+            $('.example table thead tr').prepend('<th></th>');
+
+
+            // 创建行
+            var rowsTitleArr = getFormatCode(rowsTitle);
+            rowsTitleArr.map(function(item, index) {
+                $rowsTr += '<tr><th>' + item + '</th></tr>';
+            })
+            $cols.each(function(i, n) {
+                $rowsTd += '<td><span></span></td>';
+            })
+            $('.example table tbody').empty().append($rowsTr);
+            $('.example table tbody tr').append($rowsTd);
+        }
+
+
+
+        // 将文本域里的内容根据换行符转化为数组
+        function getFormatCode(strValue) {
+            strValue = $.trim(strValue).replace(/\r\n/g, ',').replace(/\n/g, ',').replace(/\s/g, '');
+            var valArr = strValue.split(',');
+            valArr = $.grep(valArr, function(n, i) {
+                return n;
+            }, false);
+            return valArr;
+        }
+
+        // 将数组转化问文本域内容
+        function getTextAreaVal(arr) {
+            var arrStr = arr.join(',');
+            var reg = new RegExp(",", "g")
+            var newstr = arrStr.replace(reg, "\n");
+            return newstr;
+        }
+
+
+        init();
+
+    })
+    </script>
+    <script type="text/javascript">
+    // 递归累加
+    function foo(n) {
+        if (n == 1) return 1;
+        return n + foo(n - 1);
+    }
+    var res = foo(5);
+    // console.log(res)
+
+
+    // 普通累加
+    var res = 0;
+    for (var i = 0; i <= 5; i++) {
+        res += i;
+    };
+    // console.log(res)
+    </script>
+</body>
+
+</html>

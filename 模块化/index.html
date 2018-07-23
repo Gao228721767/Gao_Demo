@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>require模块化</title>
+</head>
+
+<body>
+    <script type="text/javascript" src="js/public/require.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript">
+    require(['jquery', 'page1'], function(jq, page1) {
+        var $page = require('page1');
+        console.log($page)
+        $page.hello1();
+        $page.hello2();
+    })
+    </script>
+</body>
+
+</html>

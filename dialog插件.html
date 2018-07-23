@@ -139,7 +139,7 @@
 
                             }
                         }
-                  
+
                         // 合并参数
                         var options = $.extend({},defaults,opts)
                         // 模板
@@ -198,7 +198,7 @@
                     callBack:function(e){
                         if(e.index == 0){
                             $(that).parent().remove();
-                            alert('删除成功')
+                            alert('删除成功');
                         }
                     },
                     CloseCallBackFun:function(){
@@ -206,6 +206,9 @@
                     }
                 })
             })
+
+
+
             $.dialog({
                 title:'提示',
                 tips:'图片过大，请重新上传图片！',
