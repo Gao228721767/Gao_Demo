@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>有趣的JS</title>
+</head>
+
+<body>
+    <script>
+    onload = function() {
+        /*1、JS执行上下文
+        for循环开始时，i 作为一个全局变量，每次循环都将 function 放进 arr，但 function 没有执行
+        循环结束，全局变量 i 的值已经变为了 3，这时再执行函数 function
+        执行结果 3 3 3*/
+
+        var arr = [];
+        for (var i = 0; i < 3; i++) {
+            arr[i] = function() {
+                console.log(i+'__') // 3 3 3
+            }
+        }
+
+        arr[0]();
+        arr[1]();
+        arr[2]();
+
+
+
+        /*****************************************/
+
+
+        /*2、JS运行机制
+        setTimeout 是异步方法
+        for 循环开始时，setTimeout 里的函数 function 并没有立即执行，而是被加入任务队列
+        循环结束时，也就是当主进程运行结束时，任务队列的方法才会进入主进程开始执行，此时全局变量 i 的值已经变为了 3
+        所以执行结果 3 3 3*/
+
+        for (var i = 0; i < 3; i++) {
+            setTimeout(function() {
+                console.log(i+'...') // 3 3 3
+            }, 0)
+        }
+
+
+
+        /****************************************/
+
+
+
+        /*3、this 指向
+        当执行 obj.start() 时，start函数为 obj 内方法，this 指向 obj;
+        当执行 func() 时，obj.start作为普通函数被调用，this 指向 window。*/
+
+
+
+        window.val = 1;
+        var obj = {
+            val: 2,
+            start: function() {
+                // console.log(this)
+                this.val *= 2;
+                val *= 2;
+                console.log(val)
+                console.log(this.val)
+            }
+        }
+        obj.start()   // 2 4
+        var func = obj.start;
+        func(); // 8 8
+
+    }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

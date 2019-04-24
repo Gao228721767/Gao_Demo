@@ -140,20 +140,28 @@
             theDiv = null; //用完的对象记得释放
             tempDiv.remove(); // 删除新建的虚线div
             move = false;
-
+            sort();
         });
 
+
+
+        function sort(){
+            var size = $('.main').length;
+            for(var i = 0 ; i < size ; i++){
+                $('.main').eq(i).find('span').text(i+1);
+            }
+        }
     });
     </script>
 </head>
 
 <body>
     <div class="box" id="box">
-        <div class="main" id="main0">1.列表一</div>
-        <div class="main" id="main1">2.列表二</div>
-        <div class="main" id="main2">3.列表三</div>
-        <div class="main" id="main3">4.列表四</div>
-        <div class="main" id="main4">5.列表五</div>
+        <div class="main" id="main0"><span>1</span>.列表一</div>
+        <div class="main" id="main1"><span>2</span>.列表二</div>
+        <div class="main" id="main2"><span>3</span>.列表三</div>
+        <div class="main" id="main3"><span>4</span>.列表四</div>
+        <div class="main" id="main4"><span>5</span>.列表五</div>
     </div>
 </body>
 

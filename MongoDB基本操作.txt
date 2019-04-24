@@ -1,0 +1,120 @@
+一、操作mongodb数据库
+    1、创建数据库
+        语法：use 数据库名
+        注意：如果数据库不存在则创建数据库，否则切换到指定数据库
+        注意：如果刚刚创建的数据库不再列表内，如果要显示它，需要向数据库插入一些数据 (db.student.insert({name:"tom",age:18,gender:"1",address:"深圳"，isDelete:0}))
+
+    2、查看所有数据：
+        show dbs
+
+    3、查看当前正在使用的数据库：
+        a、db
+        b、db.getName()
+
+    4、断开连接：
+        exit
+
+    5、查看命令api：
+        help
+
+    6、删除数据：
+        db.dropDatabase()
+
+
+
+二、集合操作
+    1、查看当前数据库下有哪些集合：
+        show collections
+
+    2、创建集合：
+        a、
+            语法：db.createCollection("集合名")
+            示例：db.createCollection("class")
+
+        b、
+            语法：db.集合名.insert(document)
+            示例：db.student.insert({name:"tom",age:18,gender:"1",address:"深圳"，isDelete:0})
+
+        区别：两者的区别在于前者创建的是一个空的集合，后者创建一个空的集合并添加一个文档
+
+    3、删除当前数据库中的集合：
+        语法：db.集合名.drop()
+        示例：db.class.drop()
+
+
+
+三、文档操作
+    1、插入文档
+        a、使用insert()方法插入文档
+            语法：db.集合名.insert(document)
+            插入一个：db.student.insert({name:"tom",age:18,gender:"1",address:"深圳"，isDelete:0})
+            插入多个：db.student.insert({name:"tom",age:18,gender:"1",address:"深圳"，isDelete:0},{},...)
+
+        b、使用save()方法插入文档
+            语法：db.集合名.save(document)
+            说明：如果不指定_id字段，save()方法类似于insert()方法。如果指定_id字段，则会更新_id字段的数据
+
+    2、文档更新
+        a、update()方法用于更新已存在的文档
+        语法：
+            db.集合名.update(
+                <query>,
+                <update>,
+                {
+                    upset:<boolean>,
+                    multi:<boolean>,
+                    writeConcern:<document>
+                }
+            )
+
+            参数说明：
+                query：update的查询条件，类似于sql里update语句内where后面的内容
+                update：
+                update的对象和一些更新的操作符($set,$inc)等,$set直接更新,$inc在原有基础上累加后更新
+                upset：可选，如果不存在update的记录，是否当新数据插入，boolean,默认false
+                multi：可选，默认false，只更新找到的第一条记录，如果为true，数据全部更新
+                writeConcern：可选，跑出异常的级别
+
+
+        b、save()方法通过传入的文档替换已有文档
+            语法：
+                db.集合名.save(
+                    document,
+                    {
+                        writeConcern：<document>
+                    }
+                )
+            参数说明：
+                document：文档数据
+                writeConcern：可选，抛出异常级别
+
+
+    3、文档删除
+        说明：在执行remove()函数前，先执行find()命令来判断执行的条件是否存在是一个良好的习惯
+
+        语法：
+            db.集合名.remove(
+                query,
+                {
+                    justOne：<boolean>,
+                    writeConcern：<document>
+                }
+            )
+
+        参数说明：
+            query：可选，删除的文档的条件
+            justOne：可选，如果为true或1，则只删除一个文档
+            writeConcern：可选，抛出异常级别
+
+    4、文档查询
+
+    5、
+
+    6、
+
+    7、
+
+    8、
+
+    9、
+

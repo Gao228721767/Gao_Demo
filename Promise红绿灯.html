@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Promise 红绿灯</title>
+</head>
+
+<body>
+    <div id="traffic-light" style="width:100px;height:100px;background: #CCC;border-radius: 50%;"></div>
+    <script>
+    function sleep(duration) {
+        return new Promise(function(resolve) {
+            setTimeout(resolve, duration);
+        })
+    }
+
+    async function changeColor(duration, color) {
+        document.getElementById("traffic-light").style.background = color;
+        await sleep(duration);
+        console.log(4)
+    }
+
+    async function main() {
+        while (true) {
+            await changeColor(3000, "green");
+            console.log(1)
+            await changeColor(1000, "yellow");
+            console.log(2)
+            await changeColor(2000, "red");
+            console.log(3)
+        }
+    }
+    // main()
+
+
+    function foo() {
+        try {
+            return 0
+        } catch (err) {
+
+        } finally {
+            return 1
+        }
+    }
+
+    // console.log(foo())
+
+
+    function Parent1() {
+        this.name = 'parent1'
+    }
+    Parent1.prototype.say = function(){
+        console.log('say')
+    }
+
+
+    function Child1() {
+        Parent1.call(this); // 改变this指向，父类的this指向 子构造函数的 实例
+        this.type = 'child1'
+    }
+    // Child1.prototype = new Parent1();
+    Child1.prototype = Parent1.prototype;
+
+
+
+    var o = new test();
+    console.log(o.odd())
+
+
+    </script>
+</body>
+
+</html>

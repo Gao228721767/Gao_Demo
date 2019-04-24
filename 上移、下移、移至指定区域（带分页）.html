@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>使用js实现上移、下移、置顶、置底功能及源码案例</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <style>
+    .demo li {
+        line-height: 30px;
+        border-bottom: 1px solid #000;
+    }
+
+    .demo li a {
+        padding: 0 20px;
+    }
+
+    .demo li input {
+        border: 0;
+        border-bottom: 1px solid #000;
+        width: 30px;
+        outline: none;
+        text-align: center;
+    }
+
+    .serital {
+        display: inline-block;
+        width: 100px;
+    }
+    </style>
+</head>
+
+<body>
+    <ul class="demo">
+        <li>
+            <span class="serital" type="pagingTopic">这是第一页</span>
+        </li>
+        <li>
+            <span class="serital">001</span>
+            <a href="#" class="up">上移</a>
+            <a href="#" class="down">下移</a>
+            <span>移至第<input type="text" />题</span>
+        </li>
+        <li>
+            <span class="serital">002</span>
+            <a href="#" class="up">上移</a>
+            <a href="#" class="down">下移</a>
+            <span>移至第<input type="text" />题</span>
+        </li>
+        <li>
+            <span class="serital" type="pagingTopic">这是第二页</span>
+            <a href="#" class="up">上移</a>
+            <a href="#" class="down">下移</a>
+            <span>移至第<input type="text" />题</span>
+        </li>
+        <li>
+            <span class="serital">003</span>
+            <a href="#" class="up">上移</a>
+            <a href="#" class="down">下移</a>
+            <span>移至第<input type="text" />题</span>
+        </li>
+        <li>
+            <span class="serital">004</span>
+            <a href="#" class="up">上移</a>
+            <a href="#" class="down">下移</a>
+            <span>移至第<input type="text" />题</span>
+        </li>
+        <li>
+            <span class="serital" type="pagingTopic">这是第三页</span>
+            <a href="#" class="up">上移</a>
+            <a href="#" class="down">下移</a>
+            <span>移至第<input type="text" />题</span>
+        </li>
+        <li>
+            <span class="serital">005</span>
+            <a href="#" class="up">上移</a>
+            <a href="#" class="down">下移</a>
+            <span>移至第<input type="text" />题</span>
+        </li>
+        <li>
+            <span class="serital">006</span>
+            <a href="#" class="up">上移</a>
+            <a href="#" class="down">下移</a>
+            <span>移至第<input type="text" />题</span>
+        </li>
+    </ul>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+    // 上移、下移
+    $(".demo").on('click', 'a', function(event) {
+        event.preventDefault;
+        var parent = $(this).parent();
+        var parents = $(this).parents(".demo");
+        var len = parents.children().length;
+        if (($(this).is(".up") || $(this).is(".top")) && parent.index() == 0) {
+            alert("已经置顶！");
+            return false;
+        } else if (($(this).is(".down") || $(this).is(".bottom")) && parent.index() == len - 1) {
+            alert("已经置底！");
+            return false;
+        }
+        switch (true) {
+            case $(this).is(".up"):
+                var prev = parent.prev();
+                parent.insertBefore(prev);
+                break;
+            case $(this).is(".down"):
+                var next = parent.next();
+                parent.insertAfter(next);
+                break;
+        }
+
+        // resetSort();
+    });
+
+    // 移至第几题
+    $('.demo').on('keyup', 'input', function(event) {
+        if (event.keyCode == 13) {
+            var $parent = $(this).parent().parent();
+            var v = $(this).val();
+            var i = $($parent).index();
+            console.log('value:' + v + '---- index:' + i)
+            if (v > i) {
+                $('.demo').find('li').eq(v - 1).after($parent);
+            } else {
+                $('.demo').find('li').eq(v - 1).before($parent);
+            }
+            // resetSort();
+        }
+    })
+
+    // 重置序列号
+    function resetSort() {
+        var Len = $('.demo').children().length;
+        for (var i = 0; i < Len; i++) {
+            $('.demo').find('.serital').eq(i).text('00' + (i + 1));
+        }
+    }
+
+    // resetSort();
+
+
+    </script>
+</body>
+
+</html>

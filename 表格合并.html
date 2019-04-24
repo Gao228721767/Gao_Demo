@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>表格合并</title>
+    <style>
+
+        tr{
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <table  border="1" width="800 " cellspacing="0" cellpadding="0">
+        <tr>
+            <th rowspan="2">名称</th>
+            <th colspan="2">名次</th>
+            <th rowspan="2">科目</th>
+            <th rowspan="2">操作</th>
+        </tr>
+        <tr>
+            <th>上限</th>
+            <th>下限</th>
+        </tr>
+    </table>
+
+
+    <select class="select1 select" name="">
+        <option value="1">分数</option>
+        <option value="2">比例</option>
+        <option value="3">标准</option>
+    </select>
+
+    <select class="select2 select" name="">
+        <option value="1">分数</option>
+        <option value="2">比例</option>
+        <option value="3">标准</option>
+    </select>
+
+    <div class="select">111</div>
+    <div class="select">222</div>
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        $(function(){
+            $('.select').on('change',function(){
+                var Val = $(this).val();
+                $(".select").val(Val);
+                console.log($('.select').length)
+            })
+        })
+    </script>
+
+</body>
+
+</html>

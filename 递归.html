@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>select</title>
+    <style>
+    /* IE */
+
+    select::-ms-expand {
+        display: none;
+    }
+    /* --火狐、谷歌清除--*/
+
+    select {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        background: transparent;
+        padding-right: 14px;
+        text-align: center;
+        padding: 0;
+        padding: 0 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <select name="" id="Selcet">
+        <option value="比例">比例</option>
+        <option value="人数">人数</option>
+    </select>
+    <!-- <canvas id="canvas">对不你，你的浏览器不支持Canvas</canvas>
+    <img id="img" src="img/face2.jpg" alt=""> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+    $(function() {
+        var json = [{
+            "id": "ADMINOID-0000-0000-0000-000000000000",
+            "name": "系统根机构 1-1",
+            "status": "1",
+            "ordinal": 101,
+            "childs": [{
+                "id": "bf10143c-8fe7-4f88-8657-1220705820e0",
+                "name": "非学业列表 2-1",
+                "status": "0",
+                "ordinal": 201,
+                "childs": [{
+                    "id": "adc5ec7d-d66e-433c-9e05-5e2641ce1b15",
+                    "name": "学生会 3-1",
+                    "status": "1",
+                    "ordinal": 301,
+                    "childs": []
+                }]
+            }, {
+                "id": "cf55ac46-299d-42ba-830d-0583e773ac1b",
+                "name": "CBI 2-3",
+                "status": "1",
+                "ordinal": 203,
+                "childs": [{
+                    "id": "b9a800dd-2869-4518-9670-a0a3a5db2e88",
+                    "name": "SSF 3-1",
+                    "status": "1",
+                    "ordinal": 301,
+                    "childs": []
+                }, {
+                    "id": "8a8f1f7d-0620-4078-bfdb-d7791ce3e26f",
+                    "name": "MBA 3-2",
+                    "status": "1",
+                    "ordinal": 302,
+                    "childs": []
+                }]
+            }, {
+                "id": "1d63ba18-b3d7-4d05-99fe-643651957c85",
+                "name": "FBI 2-5",
+                "status": "1",
+                "ordinal": 205,
+                "childs": [{
+                    "id": "81644fcb-540e-4660-809d-b3d7c6b46a55",
+                    "name": "C2C 3-1",
+                    "status": "1",
+                    "ordinal": 301,
+                    "childs": [{
+                        "id": "c6824918-bcce-4a0f-aef1-ecc0d0422d2d",
+                        "name": "ABA 2-6",
+                        "status": "1",
+                        "ordinal": 206,
+                        "childs": []
+                    }]
+                }]
+            }]
+        }];
+
+        var treeClass = []
+        let level = 0
+
+
+        function filterNav(data) {
+            if(data.length==0) return;
+            let treelevel = 0;
+            function descr(data, treelevel){
+                data.forEach(val=>{
+                    val.treelevel = treelevel;
+                    if(val.childs.length>0){
+                        descr(val.childs, treelevel+1)
+                    }
+                })
+            }
+            descr(data,0)
+           return data
+        }
+
+
+
+        var treeList = []
+
+        function getParentOrgan(organs, level = 0) {
+            if(organs.length==0) return;
+            const res = []
+            organs.map((item, index) => {
+                if (item.status === '1') {
+                    item.treeLevel = level
+                    treeList.push(item)
+                    if (item.childs.length > 0) {
+                        item.childs = getParentOrgan(item.childs, level+1)
+                    }
+                }
+                res.push(item)
+            })
+            return res
+        }
+
+        /*console.log(getParentOrgan(json))
+        console.log(treeClass)*/
+
+
+        function getParentOrganList(organs, level = 0) {
+            if(organs.length==0) return;
+            organs.map((item, index) => {
+                if (item.status === '1') {
+                    item.treeLevel = level
+                    treeList.push(item)
+                    if (item.childs.length > 0) {
+                        item.childs = getParentOrgan(item.childs, level+1)
+                    }
+                }
+            })
+            return treeList
+        }
+
+        console.log(getParentOrganList(json))
+
+    });
+    </script>
+</body>
+
+</html>

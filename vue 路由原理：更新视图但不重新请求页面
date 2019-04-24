@@ -1,0 +1,31 @@
+vue 路由原理：更新视图但不重新请求页面
+    一：
+        1.利用 URL 中的hash("#");
+        2.利用 History interface 在HTML5中新增的方法;
+
+    二：
+        通过 vue-router 中的 mode 参数控制路由的 实现模式，
+        创建VueRouter的实例对象时，mode以构造参数的形式传入。
+
+    三：HashHistory
+        hash("#")符号的本来作用是加在URL指示网页中的位置
+       ‘#’本身以及它后面的字符称之为hash可通过window.location.hash属性读取.
+        hash虽然出现在url中，但不会被包括在http请求中，它是用来指导浏览器动作的，对服务器端完全无用，因此，改变hash不会重新加载页面。
+
+    四：流程
+        $router.push()-->HashHistory.push()-->History.transitionTo()-->History.updateRoute()-->{app._route=route}-->vm.render()
+
+        $router.push()：将路由加入 URl 地址栏中
+        HashHistory.push()：在浏览器访问历史中添加记录。
+        History.transitionTo()：处理路由变化逻辑，并触发视图更新
+        History.updateRoute()：触发视图更新
+        {app._route=route}-->vm.render()：注册一个全局混合，渲染视图
+
+
+
+vue keep-alive 原理：
+    一：
+        vue中，DOM节点被抽象成 VNode 虚拟节点，keep-alive的缓存是基于VNode 节点而不是直接存储DOM结构
+    二：
+        将需要缓存的VNode节点保存在cache中，在render时,如果VNode的name符合在缓存条件（可以用include以及exclude控制），则会从this.cache中取出之前缓存的VNode实例进行渲染
+

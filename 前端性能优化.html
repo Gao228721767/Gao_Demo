@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>performance API</title>
+</head>
+
+<body>
+    <script>
+    onload = function() {
+        /**
+         * 前端性能测试
+         *
+         */
+
+        // Performance Timing
+        function  performanceTest()  {
+            let  timing  =  performance.timing,
+                    readyStart  =  timing.fetchStart  -  timing.navigationStart,
+                    redirectTime  =  timing.redirectEnd  -  timing.redirectStart,
+                    appcacheTime  =  timing.domainLookupStart  -  timing.fetchStart,
+                    unloadEventTime  =  timing.unloadEventEnd  -  timing.unloadEventStart,
+                    lookupDomainTime  =  timing.domainLookupEnd  -  timing.domainLookupStart,
+                    connectTime  =  timing.connectEnd  -  timing.connectStart,
+                    requestTime  =  timing.responseEnd  -  timing.requestStart,
+                    initDomTreeTime  =  timing.domInteractive  -  timing.responseEnd,
+                    domReadyTime  =  timing.domComplete  -  timing.domInteractive,
+                    loadEventTime  =  timing.loadEventEnd  -  timing.loadEventStart,
+                    loadTime  =  timing.loadEventEnd  -  timing.navigationStart;
+
+
+            console.log('准备新页面时间耗时: '  +  readyStart);   
+
+            console.log('redirect 重定向耗时: '  +  redirectTime);   
+
+            console.log('Appcache 耗时: '  +  appcacheTime);    
+
+            console.log('unload 前文档耗时: '  +  unloadEventTime);  
+              
+            console.log('DNS 查询耗时: '  +  lookupDomainTime);
+                
+            console.log('TCP连接耗时: '  +  connectTime);    
+
+            console.log('request请求耗时: '  +  requestTime);   
+             
+            console.log('请求完毕至DOM加载: '  +  initDomTreeTime);
+                
+            console.log('解析DOM树耗时: '  +  domReadyTime);  
+              
+            console.log('load事件耗时: '  +  loadEventTime);  
+              
+            console.log('加载时间耗时: '  +  loadTime);
+
+        }
+
+
+        // profile
+        /*console.profile();
+        for (var i = 0; i < 10; i++) {
+            console.log(i);
+        }
+        console.profileEnd();*/
+
+
+
+
+        // 脚本埋点计时
+        let timeList = [];
+
+        function addTime(tag) {
+            timeList.push({
+                "tag": tag,
+                "time": +new Date
+            });
+        }
+        addTime("loading");
+        timeList.push({
+            "tag": "load",
+            "time": +new Date()
+        });
+        // TODOS，load加载时的操作
+        timeList.push({
+            "tag": "load",
+            "time": +new Date()
+        });
+        timeList.push({
+            "tag": "process",
+            "time": +new Date()
+        });
+        // TODOS，process处理时的操作
+        timeList.push({
+            "tag": "process",
+            "time": +new Date()
+        });
+        parseTime(timeList); // 输出{load: 时间毫秒数，process: 时间毫秒数}
+        function parseTime(time) {
+            let timeStep = {},
+                endTime;
+            for (let i = 0, len = time.length; i < len; i++) {
+                if (!time[i]) continue;
+                endTime = {};
+                for (let j = i + 1; j < len; j++) {
+                    if (time[j] && time[i].tag == time[j].tag) {
+                        endTime.tag = time[j].tag;
+                        endTime.time = time[j].time;
+                        time[j] = null;
+                    }
+                }
+                if (endTime.time >= 0 && endTime.tag) {
+                    timeStep[endTime.tag] = endTime.time - time[i].time;
+                }
+            }
+            return timeStep;
+        }
+
+
+        console.log(timeList)
+        console.log(timeList.length)
+        var timeAll = parseTime(timeList);
+        console.log(timeAll)
+    }
+    </script>
+</body>
+
+</html>

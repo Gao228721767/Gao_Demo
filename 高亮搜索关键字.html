@@ -9,37 +9,40 @@
     <input type="button" value="搜索" id="search_btn">
     <p id="con"></p>
     <div class="order"></div>
+    <div class="box"></div>
+    <button class="btn">按钮</button>
 
     <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/index.js"></script>
     <script>
         $(function(){
             var list = {
                 Title:'这是标题',
                 Content:'这是内容',
                 Footer:'这是底部'
-            }
+            };
             $('#search_btn').click(function(){
                 var SearchVal = $('#seachVal').val();
                 if(SearchVal != ""){
-                    console.log(SearchVal)
+                    console.log(SearchVal);
                     var seachVal = SearchVal;
                     var name= list.Title;
                     var cardTitle = name.toLowerCase();
                     var subStart = cardTitle.indexOf(seachVal.toLowerCase());
-                    console.log(subStart)
+                    console.log(subStart);
                     if(subStart>0||subStart==0){
                         var subEnd = cardTitle.indexOf(seachVal.toLowerCase())+seachVal.length;
-                        cardTitle = name.substr(0,subStart) + '<span style="color:#008CF0">' + name.substr(subStart,seachVal.length) + '</span>' + name.substr(subEnd)
+                        cardTitle = name.substr(0,subStart) + '<span style="color:#008CF0">' + name.substr(subStart,seachVal.length) + '</span>' + name.substr(subEnd);
                         list.Title=cardTitle;
-                        $('#con').empty()
-                        $('#con').append(cardTitle)
+                        $('#con').empty();
+                        $('#con').append(cardTitle);
                     }
                 }
-            })
+            });
 
 
 
-            var orderTitle = '您的网文YXWZ2017121480001提交成功，支付金额80，支付方式账户余额支付，系统正在处理中... '
+            var orderTitle = '您的网文YXWZ2017121480001提交成功，支付金额80，支付方式账户余额支付，系统正在处理中... ';
             var orderno = 'YXWZ2017121480001';
 
             function substrOrderNo(orderTitle,orderno){
@@ -50,11 +53,37 @@
                     var subEnd =orderNoLen + orderSearch;
                     orderTitle = orderTitle.substr(0,orderSearch) + '<span style="color:#008CF0">' + orderTitle.substr(orderSearch,orderNoLen) + '</span>' +  orderTitle.substr(subEnd);
                 }
-                $('.order').append(orderTitle)
+                $('.order').append(orderTitle);
             }
 
-            substrOrderNo(orderTitle,orderno)
-        })
+            substrOrderNo(orderTitle,orderno);
+
+
+
+
+
+
+
+            var str = '以上数据是基于河南,河北,山西,江西,湖北,湖南,广东,安徽,福建,甘肃,青海,内蒙古,黑龙江,吉林,辽宁,宁夏,新疆,西藏,陕西,重庆,云南,广西,贵州,四川,海南,山东,北京,天津数据计算得来。';
+
+            var strStart = '以上数据是基于';
+            var strEnd = '数据计算得来';
+            function subString(start, end, str) {
+                var strHeader = str.indexOf(start);
+                var strFooter = str.indexOf(end);
+
+                if(strHeader != -1 && strFooter != -1) {
+                    var strStartLen = strStart.length;
+                    var strCenterLen = strFooter - strStartLen;
+                    str = str.substr(0,strStartLen) + '<span style="color:#D00"> ' + str.substr(strStartLen,strCenterLen) + ' </span>' +  str.substr(strFooter);
+                }
+
+                return str;
+            }
+
+            var text = subString(strStart, strEnd, str);
+            $('.box').html(text);
+        });
     </script>
 </body>
 </html>

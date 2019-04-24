@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"></link>
+</head>
+
+<body>
+    <div id="app">
+        <el-col span="4">
+            <el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" id="menu">
+                <child v-for="item in itemlist" :item-data="item"></child>
+            </el-menu>
+        </el-col>
+    </div>
+</body>
+<script type="text/x-template" id="main-template">
+    <div>
+        <el-menu-item v-if="itemData.childs.length==0" :index="itemData.id">
+            <span>{{itemData.name}}</span>
+        </el-menu-item>
+        <el-submenu v-if="itemData.childs.length!=0" :index="itemData.id">
+            <template slot="title">
+                <span>{{itemData.name}}</span>
+            </template>
+            <!--调用组件自身，循环item的childs，实现递归 -->
+            <child v-for="item in itemData.childs" :item-data="item"></child>
+        </el-submenu>
+    </div>
+</script>
+<script>
+// 注册
+Vue.component('child', {
+    created(){
+        console.log(this.itemData)
+    },
+    props: ['itemData'],
+    // 同样也可以在 vm 实例中像 “this.message” 这样使用
+    template: '#main-template'
+})
+// 创建根实例
+new Vue({
+    el: '#app',
+    data: {
+        itemlist: [{
+            "id": "ADMINOID-0000-0000-0000-000000000000",
+            "name": "系统根机构",
+            "status": "1",
+            "index":0,
+            "ordinal": 0,
+            "childs": [{
+                "id": "cf55ac46-299d-42ba-830d-0583e773ac1b",
+                "name": "test",
+                "status": "1",
+                "ordinal": 0,
+                 "index":2,
+                "childs": []
+            }, {
+                "id": "bf10143c-8fe7-4f88-8657-1220705820e0",
+                "name": "非学业列表",
+                "status": "0",
+                "ordinal": 5,
+                 "index":3,
+                "childs": []
+            }, {
+                "id": "c8dec6d2-85b2-44b2-a4c4-5",
+                "name": "总体表现",
+                "status": "0",
+                "ordinal": 15,
+                "childs": [],
+                 "index":4
+            }, {
+                "id": "1d63ba18-b3d7-4d05-99fe-7",
+                "name": "gg",
+                "status": "1",
+                "ordinal": 999,
+                 "index":5,
+                "childs": []
+            }, {
+                "id": "de373564-b68a-47b7-bf8d-9",
+                "name": "指标值分析",
+                "status": "1",
+                 "index":6,
+                "ordinal": 999,
+                "childs": []
+            }, {
+                "id": "30b49d73-89b3-4374-a997-60eab0f9a714",
+                "name": "组织与分析",
+                "status": "1",
+                 "index":7,
+                "ordinal": 999,
+                "childs": [{
+                    "id": "1",
+                    "name": "分析",
+                    "status": "1",
+                     "index":8,
+                    "ordinal": 999,
+                    "childs": [{
+                        "id": "0",
+                        "name": "gg",
+                         "index":9,
+                        "status": "1",
+                        "ordinal": 999,
+                        "childs": []
+                    }]
+                },{
+                    "id": "1",
+                    "name": "分析",
+                    "status": "1",
+                     "index":8,
+                    "ordinal": 999,
+                    "childs": [{
+                        "id": "0",
+                        "name": "gg",
+                         "index":9,
+                        "status": "1",
+                        "ordinal": 999,
+                        "childs": []
+                    }]
+                }]
+            }]
+        }]
+    }
+})
+</script>
+
+</html>

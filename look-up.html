@@ -19,6 +19,9 @@
         }
         let graceForLevel = [700, 650, 600, 550];
         let levelText = ['信用极好', '信用优秀', '信用良好', '信用中等', '信用较差'];
+
+        let res1 = showGrace(650, graceForLevel, levelText);
+        console.log(res1)
     </script>
 
 
@@ -63,6 +66,7 @@
 
     <script>
         function formatDate(timeStr){
+            console.log(timeStr)
             //获取当前时间戳
             let _now=+new Date();
             //求与当前的时间差
@@ -128,6 +132,8 @@
             //如果发布时间小于1分钟，之际返回1分钟
             return result='1分钟前'
         }
+
+
     </script>
 
 
@@ -142,7 +148,8 @@
         function getPayChanne(tag,chineseConfig){
             return chineseConfig[tag];
         }
-        getPayChanne('cash',payChanneForChinese);
+        var res3 = getPayChanne('cash',payChanneForChinese);
+        console.log(res3)
     </script>
 </body>
 
